@@ -6,10 +6,12 @@ class List:
     def __init__(self):
         self.head = None
         self.size = 0
+        self.tail = None
 
     def __init__(self, node):
         self.head = node
         self.size = 1
+        self.tail = node
 
     def is_sorted(self):
         if not self.head:
@@ -26,9 +28,7 @@ class List:
         if self.head is None:
             self.head = node
         else:
-            node = self.head
-            while node.next is not None:
-                node = node.next
+            node = self.tail
             node.next = new_node
         self.size += 1
 
@@ -62,8 +62,8 @@ class List:
         new_head = Dnode(-1)
         new_head.next = self.head
         
-        curr = self.head.next
         last_sorted = self.head
+        curr = last_sorted.next
         
         while curr:
             if curr.val >= last_sorted.val:
@@ -76,12 +76,37 @@ class List:
                 curr.next = prev.next
                 prev.next = curr
             curr = last_sorted.next
-            self.head = new_head.next
-        return self.head
+        self.head = new_head.next
 
 
+    def SortedInsert(self,node):
 
-    
+        new_node = node
+
+        if not self.head:
+            self.head = new_node
+            return
+
+        if (self.is_sorted()!= True):
+            self.Sort()
+
+        if new_node.val <= self.head.val:
+            new_node.next = self.head
+            self.head = new_node
+            return
+        
+        curr = self.head
+        
+        while curr.next and curr.next.val < new_node.val:
+            curr = curr.next
+            
+        new_node.next = curr.next
+        curr.next = new_node
+        
+
+        
+
+
     def Search(self, node):
         curr = self.head
         while curr:
@@ -103,3 +128,43 @@ class List:
         while node.next is not None:
             node = node.next
         return node
+    
+
+    def DeleteHead(self):
+
+        if self.head is None:
+            return 
+        else:
+            node = self.head.next
+            self.head = node
+            self.size -= 1
+    
+
+    def DeleteTail(self):
+        if self.head is None:
+            return
+        elif self.head.next is None:
+            self.head = None
+        else:
+            current_node = self.head
+            while current_node.next.next is not None:
+                current_node = current_node.next
+            current_node.next = None
+            self.size -=1
+
+    def Clear(self):
+        if self.head is None:
+            return
+        else:
+            self.head = None
+            self.tail = None
+
+    def Print(self):
+        current_node = self.head
+        print("The size of the singly linked list is:" +self.size)
+        print("The singly linked list is sorted:" + self.is_sorted())
+        while current_node is not None:
+            print("The value of the node is:" + current_node.data)
+            current_node = current_node.next
+
+    
