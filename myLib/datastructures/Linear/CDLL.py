@@ -58,10 +58,24 @@ class DoublyLinkedList:
 
 
     #CHECK OVER SORT
-    # def sort(self):
-    #     if self.head is None:
-    #         return
-    
+    def sort(self):
+        if not self.head:
+            return
+
+        sorted_list = CircularDoublyLinkedList()
+        current = self.head
+
+        while True:
+            new_node = Node(current.data)
+            sorted_list.SortedInsert(new_node)
+
+            if current.next == self.head:
+                break
+
+            current = current.next
+
+        self.head = sorted_list.head
+
 
     def isSorted(self): #NO CHANGE BC IM JUST TRAVERSING LIST FOWARDS FAM
         current = self.head
@@ -71,9 +85,30 @@ class DoublyLinkedList:
             current = current.next
         return True
 
-    # def SortedInsert(self, node):
-    #     if not self.isSorted():
-    #         self.sort()
+    def SortedInsert(self, node):
+        if not self.isSorted():
+            self.Sort()
+
+        if self.head is None:
+            self.head = node
+            node.next = node
+            node.prev = node
+        elif self.head.data > node.data:
+            node.prev = self.head.prev
+            node.next = self.head
+            self.head.prev.next = node
+            self.head.prev = node
+            self.head = node
+        else:
+            current = self.head
+            while current.next != self.head and current.next.data < node.data:
+                current = current.next
+
+            node.prev = current
+            node.next = current.next
+            current.next.prev = node
+            current.next = node
+
         
     def Search(self, node):
         current = self.head

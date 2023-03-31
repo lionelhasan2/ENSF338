@@ -91,7 +91,7 @@ class DoublyLinkedList:
 
     #CHECK OVER
     def SortedInsert(self, node):
-        if not self.isSorted():
+        if (self.isSorted() != True):
             self.sort()
         
         if self.head is None: # The list is empty, so insert the node at the beginning
