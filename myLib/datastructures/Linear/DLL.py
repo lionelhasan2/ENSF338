@@ -89,6 +89,7 @@ class DoublyLinkedList:
             current = current.next
         return True
 
+    #CHECK OVER
     def SortedInsert(self, node):
         if not self.isSorted():
             self.sort()
@@ -97,19 +98,19 @@ class DoublyLinkedList:
             self.head = node
             self.tail = node
 
-        elif self.head.data >= node.data: # The new node should be inserted at the beginning
+        elif self.head.val >= node.val: # The new node should be inserted at the beginning
             node.next = self.head
             self.head.prev = node
             self.head = node
         
-        elif self.tail.data <= node.data: # The new node should be inserted at the end
+        elif self.tail.val <= node.val: # The new node should be inserted at the end
             node.prev = self.tail
             self.tail.next = node
             self.tail = node
         
         else:  # Find the proper position to insert the new node
             current = self.head
-            while current.next is not None and current.next.data < node.data:
+            while current.next is not None and current.next.val < node.val:
                 current = current.next
             node.next = current.next
             node.prev = current
@@ -119,7 +120,7 @@ class DoublyLinkedList:
     def Search(self, node):
         current = self.head
         while current is not None:
-            if current.val == node.val:
+            if current == node:
                 return current
             current = current.next
         return None
@@ -155,9 +156,9 @@ class DoublyLinkedList:
     def Delete(self, node):
         if self.head is None:
             return
-        elif self.head.val == node.val: 
+        elif self.head == node: 
             return self.delete_head()
-        elif self.tail.val == node.val:
+        elif self.tail == node:
             return self.delete_tail()
         else:
             current = self.head
