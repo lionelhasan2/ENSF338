@@ -1,40 +1,38 @@
-from nodes.Dnode import Dnode
+from nodes.Dnode import DNode
+
+class SLL:
 
 
-class CSLL:
-
-    def __init__(self):
-        self.head = None
-        self.size = 0
-        self.tail = None
-        self.sorted = False
-
-    def __init__(self, node):
+    def __init__(self, node = None):
         self.head = node
         self.size = 1
         self.tail = node
         self.sorted = False
 
-    def is_Sort(self):
-        if not self.head:
-            self.sorted = True  # an empty list is sorted
+    def is_Sorted(self):
+        if self.size <= 1:
+            self.sorted = True
+        
         curr = self.head
+        
         while curr.next:
-            if curr.next.val < curr.val:
+            if curr.val > curr.next.val:
                 self.sorted = False
+                return
             curr = curr.next
+
         self.sorted = True
 
 
-    def insertTail(self, new_node):
+    def InsertTail(self, new_node):
         if self.head is None:
-            self.head = node
+            self.head = new_node
         else:
             node = self.tail
             node.next = new_node
         self.size += 1
 
-    def insertHead(self, new_node):
+    def InsertHead(self, new_node):
         if self.head is None:
             self.head = new_node
         else:
@@ -57,54 +55,47 @@ class CSLL:
             curr_node.next = node
         self.size += 1
     ##check over sometime 
+
+
+
     def Sort(self):
-        if not self.head or not self.head.next:
-            return self.head
+        if not self.head or not self.head.next or self.sorted == True:
+            return
         
-        new_head = Dnode(-1)
+        # Create a new head node to mark the beginning of the sorted list
+        new_head = DNode(-1)
         new_head.next = self.head
         
+        # Initialize the pointers for the sorted and unsorted portions of the list
         last_sorted = self.head
         curr = last_sorted.next
         
         while curr:
+            # If the current node is greater than or equal to the last sorted node,
+            # simply move the last sorted pointer forward
             if curr.val >= last_sorted.val:
                 last_sorted = last_sorted.next
             else:
+                # If the current node is less than the last sorted node,
+                # find the correct position to insert it in the sorted portion of the list
                 prev = new_head
                 while prev.next.val < curr.val:
                     prev = prev.next
+                
+                # Remove the current node from the unsorted portion of the list
                 last_sorted.next = curr.next
+                
+                # Insert the current node into the sorted portion of the list
                 curr.next = prev.next
                 prev.next = curr
+            
+            # Move the current pointer forward
             curr = last_sorted.next
+        
+        # Set the head of the list to the next node after the new head node
         self.head = new_head.next
         self.sorted = True
 
-
-    def SortedInsert(self,node):
-
-        new_node = node
-
-        if not self.head:
-            self.head = new_node
-            return
-
-        if (self.is_sorted()!= True):
-            self.Sort()
-
-        if new_node.val <= self.head.val:
-            new_node.next = self.head
-            self.head = new_node
-            return
-        
-        curr = self.head
-        
-        while curr.next and curr.next.val < new_node.val:
-            curr = curr.next
-            
-        new_node.next = curr.next
-        curr.next = new_node
         
 
     def Search(self, node):
@@ -133,6 +124,7 @@ class CSLL:
         # Otherwise, delete the head node and update the `head` pointer
         else:
             self.head = self.head.next
+        self.size -= 1
     
 
     def DeleteTail(self):
@@ -156,13 +148,7 @@ class CSLL:
             current_node = next_node
         self.head = None
 
-    def Print(self):
-        current_node = self.head
-        print("The size of the singly linked list is:" +self.size)
-        print("The singly linked list is sorted:" + self.is_sorted())
-        while current_node is not None:
-            print("The value of the node is:" + current_node.data)
-            current_node = current_node.next
+
 
     def Delete(self, node):
         """Delete the given node from the list."""
@@ -189,7 +175,8 @@ class CSLL:
     def Print(self):
         """Print the list information on the screen."""
         # Print the list length
-        print("List length:", self.length)
+        print("List size:", self.size)
+        self.is_Sorted()
 
         # Print the sorted status
         print("Sorted: " + ("Yes" if self.sorted else "No"))
@@ -201,29 +188,38 @@ class CSLL:
             current_node = self.head
             print("List content:", end=" ")
             while current_node:
-                print(current_node.data, end=" ")
+                print(current_node.val, end=" ")
                 current_node = current_node.next
             print()
+        print()
 
-    def SortedInsert(self,node_arg):
-
-        if not self.head or node_arg.data <= self.head.data:
-            node_arg.next = self.head
-            self.head = node_arg
-
+    def SortedInsert(self, new_node):
+        # If the list is empty, set the new node as the head
+        if not self.head:
+            self.head = new_node
+            return
+        
         if (self.sorted == False):
-            self.insertTail(node_arg)
-            self.sort()
-            self.size +=1
-        else:
-            current_node = self.head
-            # Traverse the list until we find the correct position for the new node
-            while current_node.next and node_arg.data > current_node.next.data:
-                current_node = current_node.next
-            node_arg.next = current_node.next
-            current_node.next = node_arg
+            self.Sort()
+        
+        # If the new node's value is less than the head's value,
+        # set the new node as the new head
+        if new_node.val <= self.head.val:
+            new_node.next = self.head
+            self.head = new_node
+            return
+        
+        # Find the correct position to insert the new node
+        curr = self.head
+        while curr.next and curr.next.val < new_node.val:
+            curr = curr.next
+        
+        # Insert the new node into the list
+        new_node.next = curr.next
+        curr.next = new_node
+        self.size +=1
 
-        self.length += 1
-        self.sorted = True
+
+
             
 
