@@ -41,13 +41,13 @@ def testCSLL():
     testCSLL.InsertHead(DNode(1))
     testCSLL.Print()
 
-    #testCSLL.SortedInsert(DNode(5))
+    testCSLL.SortedInsert(DNode(5))
     testCSLL.InsertHead(DNode(9))
     testCSLL.InsertHead(DNode(12))
     testCSLL.Sort()
-    #testCSLL.Print()
+    testCSLL.Print()
 
-   #testCSLL.SortedInsert(DNode(18))
+    testCSLL.SortedInsert(DNode(18))
 
     testCSLL.Print()
 
