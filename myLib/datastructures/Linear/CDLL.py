@@ -59,23 +59,34 @@ class DoublyLinkedList:
 
     #CHECK OVER SORT
     def sort(self):
-        if not self.head:
+        if self.head is None:
             return
+        
+        sorted_head = self.head
+        unsorted_head = self.head.next
+        sorted_tail = self.head
 
-        sorted_list = CircularDoublyLinkedList()
-        current = self.head
+        while unsorted_head != self.head:
+            current = unsorted_head
+            unsorted_head = unsorted_head.next
+            if current.data < sorted_head.data:
+                current.prev = sorted_tail
+                current.next = sorted_head
+                sorted_head.prev = current
+                sorted_tail.next = current
+                sorted_head = current
+            else:
+                sorted_iter = sorted_head
+                while sorted_iter != sorted_tail and current.data > sorted_iter.next.data:
+                    sorted_iter = sorted_iter.next
+                current.prev = sorted_iter
+                current.next = sorted_iter.next
+                sorted_iter.next.prev = current
+                sorted_iter.next = current
+                if sorted_iter == sorted_tail:
+                    sorted_tail = current
 
-        while True:
-            new_node = Node(current.data)
-            sorted_list.SortedInsert(new_node)
-
-            if current.next == self.head:
-                break
-
-            current = current.next
-
-        self.head = sorted_list.head
-
+        self.head = sorted_head
 
     def isSorted(self): #NO CHANGE BC IM JUST TRAVERSING LIST FOWARDS FAM
         current = self.head
@@ -88,26 +99,20 @@ class DoublyLinkedList:
     def SortedInsert(self, node):
         if not self.isSorted():
             self.Sort()
-
-        if self.head is None:
-            self.head = node
-            node.next = node
-            node.prev = node
-        elif self.head.data > node.data:
-            node.prev = self.head.prev
-            node.next = self.head
-            self.head.prev.next = node
-            self.head.prev = node
-            self.head = node
+        
+        if self.head is None or node.data <= self.head.data:
+            self.insert_head(node)
+        elif node.data >= self.tail.data:
+            self.insert_tail(node)
         else:
             current = self.head
             while current.next != self.head and current.next.data < node.data:
                 current = current.next
-
-            node.prev = current
             node.next = current.next
+            node.prev = current
             current.next.prev = node
             current.next = node
+            self.size += 1
 
         
     def Search(self, node):
@@ -184,4 +189,22 @@ class DoublyLinkedList:
         else:
             print("List is empty")
 
+# def main():
+#     # Create a circular doubly linked list and insert nodes
+#     cdll = DoublyLinkedList()
+#     cdll.SortedInsert(Dnode(5))
+#     cdll.SortedInsert(Dnode(2))
+#     cdll.SortedInsert(Dnode(9))
+#     cdll.SortedInsert(Dnode(1))
 
+#     # Print the unsorted list
+#     print("Unsorted list:")
+#     cdll.printList()
+
+#     # Sort the list and print it again
+#     cdll.Sort()
+#     print("Sorted list:")
+#     cdll.printList()
+
+# if __name__ == "__main__":
+#     main()
