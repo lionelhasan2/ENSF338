@@ -1,17 +1,13 @@
 
 
 class DoublyLinkedList:
-    # def __init__(self): #if list is empty no 
-    #     self.head = None
-    #     self.size = 0
-    #     self.tail = None 
 
     def __init__(self, node=None):
         self.head = node 
         self.size = 1 if node else 0
         self.tail = node #tail pointing to same node as head
 
-    def insert_head(self, new_node):
+    def insertHead(self, new_node):
         if self.head is None: #if it is empty DLL
             self.head = new_node
             self.tail = new_node
@@ -34,16 +30,13 @@ class DoublyLinkedList:
     def insert(self, new_node, position):
         if position < 1 or position > self.size + 1:
             raise ValueError("Invalid position")
-        if position == 1: #this will be the only node in the DLL
-            self.insert_head(new_node)
-            # new_node.next = self.head
-            # self.head = new_node
-            # new_node.prev = None
+        if position == 1:
+            self.insertHead(new_node)
         elif position == self.size + 1:
             self.insertTail(new_node)
         else: 
             current = self.head
-            for _ in range(position - 2):
+            for _ in range(position - 1):
                 current = current.next
             new_node.prev = current
             new_node.next = current.next
@@ -55,7 +48,6 @@ class DoublyLinkedList:
     def sort(self):
         if (self.isSorted() == True):
             return
-
         if self.size <= 1:
             return
         
@@ -112,7 +104,7 @@ class DoublyLinkedList:
             return
 
         elif self.head.val >= node.val: # The new node should be inserted at the beginning
-            self.insert_head(node)
+            self.insertHead(node)
             return
             # node.next = self.head
             # self.head.prev = node
@@ -133,61 +125,66 @@ class DoublyLinkedList:
             node.prev = current
             current.next.prev = node
             current.next = node
+            self.size += 1
 
     def Search(self, node): #WORKS BUT RETURNS AN OBJECT??????
         current = self.head
         while current is not None:
-            if current.val == node.val:
+            if current == node:
                 return current
             current = current.next
         return None
 
     def DeleteHead(self):
-        if self.head is None:
+        if self.head is None: #list is empty
             return 
-        else:
-            self.head = self.head.next
-            if self.head is not None:
-                self.head.prev = None
-            else: #if the DLL is empty now
-                self.tail = None 
-            self.size -= 1
-
-    def DeleteTail(self):
-        if self.head is None:
-            return 
-        elif self.head.next is None:
+        elif self.head == self.tail: # the list has only one node
             self.head = None
+            self.tail = None
+            self.size = 0
+            return
         else:
-            self.tail = self.tail.prev
-            if self.tail is not None:
-                self.tail.next = None
-            else:
-                self.head = None
+            next_node = self.head.next
+            next_node.prev = None
+            self.head.next = None
+            self.head = next_node
+            self.size -= 1
+        
+    def DeleteTail(self):
+        if self.head is None: #list is empty
+            return 
+        elif self.head == self.tail: # the list has only one node
+            self.head = None
+            self.tail = None
+            self.size = 0
+            return
+        else:
+            prev_node = self.tail.prev
+            prev_node.next = None
+            self.tail.prev = None
+            self.tail = prev_node
             self.size -= 1
     
     #NGL CHECK OVER
     def Delete(self, node):
-        if self.head is None:
+        if self.head is None: # empty
             return
-        elif self.head.val == node.val: 
+        elif node.val == self.head.val: # node to delete is the head node
             self.DeleteHead()
             return
-        elif self.tail.val == node.val:
+        elif node.val == self.tail.val: # node to delete is the tail node
             self.DeleteTail()
             return
         else:
-            current_node = self.head.next
-            while current_node is not None and current_node.next is not None:
+            current_node = self.head
+            while current_node is not None:
                 if current_node.val == node.val:
                     current_node.prev.next = current_node.next
                     current_node.next.prev = current_node.prev
                     self.size -= 1
                     return
                 current_node = current_node.next
-
-        print("Value not found in the list.")
-                
+            print("node is not found in existing")         
                 
     def Clear(self):
         self.head = None

@@ -2,17 +2,17 @@
 from nodes.Dnode import Dnode
 
 
-class List:
+class StackList:
 
-    def __init__(self):
-        self.head = None
-        self.size = 0
-        self.tail = None
+    # def __init__(self):
+    #     self.head = None
+    #     self.size = 0
+    #     self.tail = None
 
-    def __init__(self, node):
-        self.head = node
-        self.size = 1
-        self.tail = node
+    def __init__(self, node=None):
+        self.head = node 
+        self.size = 1 if node else 0
+        self.tail = node #tail pointing to same node as head
 
     def insertTail(self, new_node):
         print("ERROR! This function does not follow a stack-based structure")
@@ -33,7 +33,7 @@ class List:
             print("ERROR! This function does not follow a stack-based structure")
             return
         else:
-            self.Push(self, node)
+            self.Push( node)
 
     def is_sorted(self): #IDK IF THIS SHOULD JUST RETURN EMPTY OR NOT TBH
         if not self.head:
@@ -74,20 +74,24 @@ class List:
     def DeleteTail(self):
         print("ERROR! This function does not follow a stack-based structure")
         return
+    
+    def Delete(self, node):
+        print("ERROR! Deleting at a specific node does not follow a stack-based structure")
+        print("Must pop from the head to follow a First In First Out Structure, use the function pop to do so")
+        return
 
     def Clear(self):
-        if self.head is None:
-            return
-        else:
-            self.head = None
-            self.tail = None
+        self.head = None
+        self.tail = None
+        self.size = 0
 
     def Print(self):
         current_node = self.head
-        print("The size of the singly linked list is:" + self.size)
-        print("The singly linked list is sorted:" + self.is_sorted())
+        print("The size of the list is:", self.size)
+        print("The list is sorted:", self.is_sorted())
         while current_node is not None:
-            print("The value of the node is:" + current_node.data)
+            print("The value of the node is:", current_node.val)
             current_node = current_node.next
+    
 
     
