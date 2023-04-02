@@ -1,5 +1,6 @@
 from SLL import SLL
 from CSLL import CSLL
+from LLQueue import LLQueue
 from nodes.Dnode import DNode
 
 
@@ -59,11 +60,30 @@ def testCSLL():
 
     testCSLL.Print()
 
+def testLLQueue():
+    testLLQueue = LLQueue()
+    testLLQueue.enqueue(DNode(3))
+    testLLQueue.enqueue(DNode(6))
+    testLLQueue.enqueue(DNode(2))
+    testLLQueue.Print()
+    testLLQueue.enqueue(DNode(1))
+    testLLQueue.enqueue(DNode(5))
+    testLLQueue.enqueue(DNode(9))
+    testLLQueue.enqueue(DNode(12))
+    testLLQueue.Print()
+    print("Dequeueing: " + str(testLLQueue.dequeue())+"\n")
+    print("Dequeueing: " + str(testLLQueue.dequeue())+"\n")
+    testLLQueue.Print()
 
 
-testSLL()
+if __name__ == "__main__":
 
-print("Testing CSLL \n")
-testCSLL()
+
+
+
+    print("Testing LLQueue \n")
+    testLLQueue()
+
+
 
 
