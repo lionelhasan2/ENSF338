@@ -11,28 +11,28 @@ def main():
     dll.Print() #SHOULD PRINT 6,-5,6,0,3
     print()
 
-    # dll.sort()
-    # dll.Print() #SHOULD PRINT 
-    # print()
+    dll.sort()
+    dll.Print() #SHOULD PRINT -5,0,3,6,6
+    print()
 
-    # dll.SortedInsert(DNode(-1))
-    # dll.Print() #SHOULD PRINT 
-    # print()
+    dll.SortedInsert(DNode(-1))
+    dll.Print() #SHOULD PRINT -5,-1,0,3,6,6
+    print()
 
     print("Search node with value 7:", dll.Search(DNode(7))) #should return None
-    print("Search node with value 0:", dll.Search(DNode(0))) #should return object
+    print("Search node with value 6:", dll.Search(DNode(6))) #should return object
     print()
 
     dll.DeleteHead() 
-    dll.Print() #SHOULD PRINT -5,6,0,3
+    dll.Print() #SHOULD PRINT -1,0,3,6,6
     print()
 
     dll.DeleteTail() 
-    dll.Print() #SHOULD PRINT -5,6,0
+    dll.Print() #SHOULD PRINT -1,0,3,6
     print()
 
     dll.Delete(DNode(0))
-    dll.Print() #SHOULD PRINT  -5, 6
+    dll.Print() #SHOULD PRINT -1,3,6
     print()
 
     dll.Clear()

@@ -36,7 +36,7 @@ class DoublyLinkedList:
             self.insertTail(new_node)
         else: 
             current = self.head
-            for _ in range(position - 1):
+            for _ in range(position - 2):
                 current = current.next
             new_node.prev = current
             new_node.next = current.next
@@ -48,41 +48,54 @@ class DoublyLinkedList:
     def sort(self):
         if (self.isSorted() == True):
             return
-        if self.size <= 1:
+        if self.head is None or self.head.next is None:
             return
         
-        sorted_tail = self.head
-        while sorted_tail.next:
-            to_insert = sorted_tail.next
-            to_insert_prev = to_insert.prev
-            to_insert_next = to_insert.next
-
-            if to_insert.val >= sorted_tail.val:
-                sorted_tail = sorted_tail.next
+        neighbourNode = self.head.next
+        while neighbourNode != None:
+            keyData = neighbourNode.val
+            sorted_node = neighbourNode.prev
+            while sorted_node != None and sorted_node.val > keyData:
+                sorted_node.next.val = sorted_node.val
+                sorted_node = sorted_node.prev
+            if sorted_node:
+                sorted_node.next.val = keyData
             else:
-                # Remove to_insert from the list
-                to_insert_prev.next = to_insert_next
-                if to_insert_next:
-                    to_insert_next.prev = to_insert_prev
+                self.head.val = keyData
+            neighbourNode = neighbourNode.next
 
-                # Find the insertion point
-                insertion_point = self.head
-                while insertion_point and insertion_point.val < to_insert.val:
-                    insertion_point = insertion_point.next
+        # sorted_tail = self.head
+        # while sorted_tail.next:
+        #     to_insert = sorted_tail.next
+        #     to_insert_prev = to_insert.prev
+        #     to_insert_next = to_insert.next
 
-                # Insert the node
-                if insertion_point == self.head:
-                    to_insert.next = self.head
-                    self.head.prev = to_insert
-                    self.head = to_insert
-                else:
-                    to_insert.prev = insertion_point.prev
-                    to_insert.next = insertion_point
-                    insertion_point.prev.next = to_insert
-                    insertion_point.prev = to_insert
+        #     if to_insert.val >= sorted_tail.val:
+        #         sorted_tail = sorted_tail.next
+        #     else:
+        #         # Remove to_insert from the list
+        #         to_insert_prev.next = to_insert_next
+        #         if to_insert_next:
+        #             to_insert_next.prev = to_insert_prev
 
-                if to_insert_next:
-                    to_insert_next.prev = to_insert_prev
+        #         # Find the insertion point
+        #         insertion_point = self.head
+        #         while insertion_point and insertion_point.val < to_insert.val:
+        #             insertion_point = insertion_point.next
+
+        #         # Insert the node
+        #         if insertion_point == self.head:
+        #             to_insert.next = self.head
+        #             self.head.prev = to_insert
+        #             self.head = to_insert
+        #         else:
+        #             to_insert.prev = insertion_point.prev
+        #             to_insert.next = insertion_point
+        #             insertion_point.prev.next = to_insert
+        #             insertion_point.prev = to_insert
+
+        #         if to_insert_next:
+        #             to_insert_next.prev = to_insert_prev
     
     def isSorted(self):
         current = self.head
@@ -96,27 +109,17 @@ class DoublyLinkedList:
     def SortedInsert(self, node):
         if (self.isSorted() != True):
             self.sort()
-    
         if self.head is None: # The list is empty, so insert the node at the beginning
             self.head = node
             self.tail = node
             self.size += 1
             return
-
         elif self.head.val >= node.val: # The new node should be inserted at the beginning
             self.insertHead(node)
             return
-            # node.next = self.head
-            # self.head.prev = node
-            # self.head = node
-        
         elif self.tail.val <= node.val: # The new node should be inserted at the end
             self.insertTail(node)
             return
-            # node.prev = self.tail
-            # self.tail.next = node
-            # self.tail = node
-        
         else:  # Find the proper position to insert the new node
             current = self.head
             while current.next is not None and current.next.val < node.val:
@@ -127,10 +130,11 @@ class DoublyLinkedList:
             current.next = node
             self.size += 1
 
+    #ngl i dont think it works properly bc what if 2 objects same val and, the next and previous nodes will never be the same
     def Search(self, node): #WORKS BUT RETURNS AN OBJECT??????
         current = self.head
         while current is not None:
-            if current == node:
+            if current.val == node.val:
                 return current
             current = current.next
         return None
@@ -165,7 +169,7 @@ class DoublyLinkedList:
             self.tail = prev_node
             self.size -= 1
     
-    #NGL CHECK OVER
+    #NGL CHECK OVER, only deletes the first instance of this node, idk
     def Delete(self, node):
         if self.head is None: # empty
             return
