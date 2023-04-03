@@ -1,5 +1,12 @@
-from nodes.Dnode import DNode
+import sys
+from pathlib import Path
 
+parent_dir = Path(__file__).resolve().parent.parent
+sys.path.append(str(parent_dir))
+
+from  nodes.Dnode import DNode
+
+print(sys.path)
 class SLL:
 
 
