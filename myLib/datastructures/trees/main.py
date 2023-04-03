@@ -1,5 +1,12 @@
+import sys
+from pathlib import Path
+
+parent_dir = Path(__file__).resolve().parent.parent
+sys.path.append(str(parent_dir))
+
+
 from nodes.TNode import TNode
-import BST
+from BST import BST
 
 def testBST():
     test = BST()
@@ -10,5 +17,7 @@ def testBST():
 
 if __name__ == "__main__":
 
-    print("Testing BST \n")
-    testBST()
+   # print("Testing BST \n")
+   # testBST()
+    print("Testing AVL \n")
+
