@@ -28,6 +28,7 @@ class AVL(BST):
 
         # Balance the tree by performing rotations
         self.root = self.balance_tree(self.root)
+        self.updateBalance(self.root)
         
 
     def update_heights(self, node):
