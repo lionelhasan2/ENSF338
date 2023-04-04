@@ -7,6 +7,7 @@ sys.path.append(str(parent_dir))
 
 from nodes.TNode import TNode
 from BST import BST
+from AVL import AVL
 
 def testBST():
     testTree = BST()
@@ -67,15 +68,51 @@ def testTnode():
     test.get_parent().print()
 
 
+def testBST2():
+        testTree = BST()
+        testNode = TNode(2)
+        testTree.Insert(testNode)
+        testTree.Insert(5)
+        testTree.Insert(0)
+        testTree.Insert(7)
+        testTree.Insert(6)
+
+
+        print("Testing Breadth First Search after inserting the values 6, 4, and 9:")
+        testTree.printBF()
+
+
+def testAVL():
+        testTree = AVL()
+        testNode = TNode(2)
+        testTree.Insert(testNode)
+        testTree.Insert(5)
+        testTree.Insert(0)
+        testTree.Insert(7)
+        testTree.Insert(6)
+
+        print("Testing Breadth First Search after inserting the values 6, 4, and 9:")
+        testTree.printBF()
+        testTree.balance_avl()
+        print("Testing Breadth First Search after balancing")
+
+        testTree.printBF()
+
+
+
+
+
 
 
 
 
 if __name__ == "__main__":
 
-    print("Testing BST \n")
-    testBST()
-    #print("Testing TNode \n")
-    #testTnode()
+    # print("Testing BST \n")
+    # testBST()
+    # print("Testing TNode \n")
+    # testTnode()
    #print("Testing AVL \n")
+ 
+   testAVL()
 

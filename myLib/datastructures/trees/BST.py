@@ -48,6 +48,7 @@ class BST:
                 else:
                     parent_node.right = TNode(param)
                     parent_node.right.parent = parent_node
+        self.updateBalance(self.root)
 
 
 
@@ -144,3 +145,19 @@ class BST:
                 
             if current_node.get_right():
                 queue.append(current_node.get_right())
+    def updateBalance(self, node):
+        if node is None:
+            return
+
+        # Update balance factor for current node
+        node.set_balance(self.getHeight(node.left) - self.getHeight(node.right))
+
+        # Recursively update balance factors for children
+        self.updateBalance(node.left)
+        self.updateBalance(node.right)
+
+    def getHeight(self, node):
+        if node is None:
+            return -1
+        return max(self.getHeight(node.left), self.getHeight(node.right)) + 1
+    
