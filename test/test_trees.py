@@ -1,22 +1,35 @@
 import sys
 from pathlib import Path
+from io import StringIO
+import pytest
+
 
 parent_dir = Path(__file__).resolve().parent.parent
 sys.path.append(str(parent_dir))
 
 
-from nodes.TNode import TNode
-from BST import BST
-from AVL import AVL
+from myLib.datastructures.nodes.TNode import TNode
+from myLib.datastructures.trees.BST import BST
+from myLib.datastructures.trees.AVL import AVL
 
-def testBST():
+
+
+
+def test_BST():
     testTree = BST()
     testNode = TNode(6)
     testTree.Insert(testNode)
     testTree.Insert(4)
     testTree.Insert(9)
     print("Testing Breadth First Search after inserting the values 6, 4, and 9:")
+    captured_output = StringIO()
+    sys.stdout = captured_output
+    captured_output = StringIO()
+    sys.stdout = captured_output
     testTree.printBF()
+    output = captured_output.getvalue()
+    sys.stdout = sys.__stdout__
+    assert output == "Data: 6, Balance: 0\nData: 4, Balance: 0\nData: 9, Balance: 0\n"
     print("Testing  printInOrder:")
     testTree.printInOrder()
     testTree.Insert(2)
@@ -44,7 +57,7 @@ def testBST():
 
     #[x for x in test.breadth_first(root)] #tests printBF
 
-def testTnode():
+def test_Tnode():
     test = TNode()
     print("Setting data to 10 and balance to 1")
     test.set_data(10)
@@ -68,7 +81,7 @@ def testTnode():
     test.get_parent().print()
 
 
-def testBST2():
+def test_BST2():
         testTree = BST()
         testNode = TNode(2)
         testTree.Insert(testNode)
@@ -82,21 +95,23 @@ def testBST2():
         testTree.printBF()
 
 
-def testAVL():
-        testTree = AVL()
-        testNode = TNode(2)
-        testTree.Insert(testNode)
+def test_AVL():
+        testTree = AVL(TNode(2))
         testTree.Insert(5)
         testTree.Insert(0)
         testTree.Insert(7)
         testTree.Insert(6)
-
         print("Testing Breadth First Search after inserting the values 2, 5, 0, 7, and 6:")
+        captured_output = StringIO()
+        sys.stdout = captured_output
+        captured_output = StringIO()
+        sys.stdout = captured_output
         testTree.printBF()
-        testTree.balance_avl()
-        print("Testing Breadth First Search after balancing")
+        output = captured_output.getvalue()
+        sys.stdout = sys.__stdout__
+        assert output == "Data: 2, Balance: -1\nData: 0, Balance: 0\nData: 6, Balance: 0\nData: 5, Balance: 0\nData: 7, Balance: 0\n"
 
-        testTree.printBF()
+
 
 
 
@@ -108,11 +123,8 @@ def testAVL():
 
 if __name__ == "__main__":
 
-    # print("Testing BST \n")
-    # testBST()
-    # print("Testing TNode \n")
-    # testTnode()
-   #print("Testing AVL \n")
- 
-   testAVL()
+    print("Testing BST \n")
+    test_BST()
+    print("Testing TNode \n")
+    test_Tnode()
 

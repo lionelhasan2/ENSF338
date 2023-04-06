@@ -37,10 +37,10 @@ class TNode:
     def get_balance(self):
         return self.balance
 
-    def Print_TNode(self):
+    def print(self):
         # print(f"Data: {self.data}, Balance: {self.balance} Parent TNode: {self.parent} TNode Right: {self.right} TNode Left: {self.left}")
         print(f"Data: {self.data}, Balance: {self.balance}")
 
-    def __str__(self):
+    def toString(self):
         return str(self.data)
 
