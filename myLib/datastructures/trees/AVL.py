@@ -3,10 +3,10 @@ from pathlib import Path
 
 parent_dir = Path(__file__).resolve().parent.parent
 sys.path.append(str(parent_dir))
+from trees.BST import BST
 
 
-from nodes.TNode import TNode
-from BST import BST
+from myLib.datastructures.nodes.TNode import TNode
 
 class AVL(BST):
         
@@ -83,6 +83,35 @@ class AVL(BST):
         self.update_heights(node)
         self.update_heights(new_root)
         return new_root
+
+    def Insert(self,param):
+        if isinstance(param, TNode):
+            if self.root is None:
+                self.root = param
+            else:
+                self.Insert(param.data)
+        elif isinstance(param, int):
+            if self.root is None:
+                self.root = TNode(param)
+            else:
+                current_node = self.root
+                parent_node = None
+                while current_node is not None:
+                    parent_node = current_node
+                    if param < current_node.data:
+                        current_node = current_node.left
+                    elif param > current_node.data:
+                        current_node = current_node.right
+                    else:
+                        return
+                if param < parent_node.data:
+                    parent_node.left = TNode(param)
+                    parent_node.left.parent = parent_node
+                else:
+                    parent_node.right = TNode(param)
+                    parent_node.right.parent = parent_node
+        self.updateBalance(self.root)
+        self.balance_avl()
 
 
 

@@ -5,7 +5,7 @@ parent_dir = Path(__file__).resolve().parent.parent
 sys.path.append(str(parent_dir))
 
 
-from nodes.TNode import TNode
+from myLib.datastructures.nodes.TNode import TNode
 
 class BST:
     def __init__(self, root=None):
