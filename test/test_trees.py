@@ -21,7 +21,7 @@ def test_BST():
     testTree.Insert(testNode)
     testTree.Insert(4)
     testTree.Insert(9)
-    print("Testing Breadth First Search after inserting the values 6, 4, and 9:")
+    #Testing Breadth First Search after inserting the values 6, 4, and 9:")
     captured_output = StringIO()
     sys.stdout = captured_output
     captured_output = StringIO()
@@ -30,8 +30,22 @@ def test_BST():
     output = captured_output.getvalue()
     sys.stdout = sys.__stdout__
     assert output == "Data: 6, Balance: 0\nData: 4, Balance: 0\nData: 9, Balance: 0\n"
+
+
     print("Testing  printInOrder:")
     testTree.printInOrder()
+
+    #Testing print in order function 
+    captured_output = StringIO()
+    sys.stdout = captured_output
+    captured_output = StringIO()
+    sys.stdout = captured_output
+    testTree.printInOrder()
+    output = captured_output.getvalue()
+    sys.stdout = sys.__stdout__
+    assert output == "Data: 4, Balance: 0\nData: 6, Balance: 0\nData: 9, Balance: 0\n"
+
+    #Testing delete function
     testTree.Insert(2)
     testTree.Insert(5)
     testTree.Insert(7)
@@ -41,17 +55,19 @@ def test_BST():
     print("Testing delete for the value 5")
     testTree.delete(5)
     print("Testing printBF after inserting 2,5,7,11,1,3 and deleting 5")
+    captured_output = StringIO()
+    sys.stdout = captured_output
+    captured_output = StringIO()
+    sys.stdout = captured_output
     testTree.printBF()
+    output = captured_output.getvalue()
+    sys.stdout = sys.__stdout__
+    #assert output == "Data: 6, Balance: 1\nData: 4, Balance: 1\nData: 9, Balance: 0\nData: 2, Balance: 0\nData: 7, Balance: 0\nData: 11, Balance: 0\nData: 1, Balance: 0\nData: 3, Balance: 0"
 
     print("Testing search on the value 9")
-    if(testTree.search(9)):
-        print("Search function for the value 9  was successful")
-    else:
-        print("Search function for the value 9  was unsuccessful")
+    assert(testTree.search(9))
 
 
-    
-    
     print()
 
 
