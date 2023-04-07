@@ -10,25 +10,34 @@ from myLib.datastructures.nodes.TNode import TNode
 class BST:
     def __init__(self, root=None):
         if isinstance(root, TNode): #isinstance determines what type of argument it is
-            self.root = root #IDK HOW TF I WOULD MAKE IT REFERENCE A SUBTREE LIKE WHATTT????????????. Its good as is -Lionel
+            self.root = root 
         elif isinstance(root, int):
             self.root = TNode(data=root)
         else:
             self.root = None
     
     def set_root(self, root):
-        self.root = root
+        if isinstance(root, TNode): 
+            self.root = root 
+        elif isinstance(root, int):
+            self.root = TNode(data=root)
+        else:
+            self.root = None
 
     def get_root(self):
         return self.root
 
     def Insert(self, param):
         if isinstance(param, TNode):
-            if self.root is None:
-                self.root = param
-            else:
-                self.Insert(param.data)
+            # If the parameter is a node, add it to the AVL tree
+            self.Insert(param.data)
+            # Then, add its children to the AVL tree
+            if param.left is not None:
+                self.Insert(param.left)
+            if param.right is not None:
+                self.Insert(param.right)
         elif isinstance(param, int):
+            # If the parameter is an integer, insert it into the AVL tree
             if self.root is None:
                 self.root = TNode(param)
             else:
@@ -36,19 +45,17 @@ class BST:
                 parent_node = None
                 while current_node is not None:
                     parent_node = current_node
-                    if param < current_node.data:
+                    if param <= current_node.data:
                         current_node = current_node.left
-                    elif param > current_node.data:
-                        current_node = current_node.right
                     else:
-                        return
-                if param < parent_node.data:
+                        current_node = current_node.right
+                if param <= parent_node.data:
                     parent_node.left = TNode(param)
                     parent_node.left.parent = parent_node
                 else:
                     parent_node.right = TNode(param)
                     parent_node.right.parent = parent_node
-        self.updateBalance(self.root)
+
 
 
 
@@ -124,7 +131,7 @@ class BST:
         if node.left is not None:
             self.printInOrder(node.left)
 
-        node.print()
+        print(node.toString(), end="\n")
 
         if node.right is not None:
             self.printInOrder(node.right)
@@ -138,7 +145,7 @@ class BST:
         
         while queue:
             current_node = queue.pop(0)
-            current_node.print()
+            print(current_node.toString(), end="\n")
             
             if current_node.get_left():
                 queue.append(current_node.get_left())

@@ -1,3 +1,6 @@
+from myLib.datastructures.trees.AVL import AVL
+from myLib.datastructures.trees.BST import BST
+from myLib.datastructures.nodes.TNode import TNode
 import sys
 from pathlib import Path
 from io import StringIO
@@ -7,140 +10,271 @@ import pytest
 parent_dir = Path(__file__).resolve().parent.parent
 sys.path.append(str(parent_dir))
 
-
-from myLib.datastructures.nodes.TNode import TNode
-from myLib.datastructures.trees.BST import BST
-from myLib.datastructures.trees.AVL import AVL
-
-
-
-
-def test_BST():
-    testTree = BST()
-    testNode = TNode(6)
-    testTree.Insert(testNode)
-    testTree.Insert(4)
-    testTree.Insert(9)
-    #Testing Breadth First Search after inserting the values 6, 4, and 9:")
-    captured_output = StringIO()
-    sys.stdout = captured_output
-    captured_output = StringIO()
-    sys.stdout = captured_output
-    testTree.printBF()
-    output = captured_output.getvalue()
-    sys.stdout = sys.__stdout__
-    assert output == "Data: 6, Balance: 0\nData: 4, Balance: 0\nData: 9, Balance: 0\n"
-
-
-    print("Testing  printInOrder:")
-    testTree.printInOrder()
-
-    #Testing print in order function 
-    captured_output = StringIO()
-    sys.stdout = captured_output
-    captured_output = StringIO()
-    sys.stdout = captured_output
-    testTree.printInOrder()
-    output = captured_output.getvalue()
-    sys.stdout = sys.__stdout__
-    assert output == "Data: 4, Balance: 0\nData: 6, Balance: 0\nData: 9, Balance: 0\n"
-
-    #Testing delete function
-    testTree.Insert(2)
-    testTree.Insert(5)
-    testTree.Insert(7)
-    testTree.Insert(11)
-    testTree.Insert(1)
-    testTree.Insert(3)
-    print("Testing delete for the value 5")
-    testTree.delete(5)
-    print("Testing printBF after inserting 2,5,7,11,1,3 and deleting 5")
-    captured_output = StringIO()
-    sys.stdout = captured_output
-    captured_output = StringIO()
-    sys.stdout = captured_output
-    testTree.printBF()
-    output = captured_output.getvalue()
-    sys.stdout = sys.__stdout__
-    #assert output == "Data: 6, Balance: 1\nData: 4, Balance: 1\nData: 9, Balance: 0\nData: 2, Balance: 0\nData: 7, Balance: 0\nData: 11, Balance: 0\nData: 1, Balance: 0\nData: 3, Balance: 0"
-
-    print("Testing search on the value 9")
-    assert(testTree.search(9))
-
-
-    print()
-
-
-    #[x for x in test.breadth_first(root)] #tests printBF
-
-def test_Tnode():
+def test_TNodeSettersandGetters():
     test = TNode()
-    print("Setting data to 10 and balance to 1")
     test.set_data(10)
     test.set_balance(1)
     left = TNode(6)
     right = TNode(15)
     parent = TNode(20)
     test.set_left(left)
-    print("Setting left node to " + str(left.get_data()))
     test.set_right(right)
-    print("Setting right node to " + str(right.get_data()))
     test.set_parent(parent)
-    print("Setting parent node to " + str(parent.get_data()))
-    print("Data of testNode: " + str(test.get_data()))
-    print("Balance of testNode: " + str(test.get_balance()))
-    print("Left Node data: ")
-    test.get_left().print()
-    print("Right Node data: ")
-    test.get_right().print()
-    print("Parent Node data: ")
-    test.get_parent().print()
+    assert test.get_data() == 10 and test.get_balance() == 1 and test.get_left() == left and test.get_right() == right and test.get_parent() == parent
 
 
-def test_BST2():
-        testTree = BST()
-        testNode = TNode(2)
-        testTree.Insert(testNode)
-        testTree.Insert(5)
-        testTree.Insert(0)
-        testTree.Insert(7)
-        testTree.Insert(6)
+def test_TNodeConstructor():
+    test = TNode(10, 1, TNode(20), TNode(6), TNode(15))
+    assert test.get_data() == 10 and test.get_balance() == 1 and test.get_left().get_data() == 6 and test.get_right().get_data() == 15 and test.get_parent().get_data() == 20
+
+def test_TnodeToString():
+    test = TNode(10, 1, TNode(6), TNode(15), TNode(20))
+    assert test.toString() == "10"
+
+def test_TNodePrint():
+    test = TNode(10, 1, TNode(6), TNode(15), TNode(20))
+    captured_output = StringIO()
+    sys.stdout = captured_output
+    captured_output = StringIO()
+    sys.stdout = captured_output
+    test.print()
+    output = captured_output.getvalue()
+    sys.stdout = sys.__stdout__
+    assert output == "Data: 10, Balance: 1\n"
 
 
-        print("Testing Breadth First Search after inserting the values 6, 4, and 9:")
-        testTree.printBF()
+def test_BSTSetRootTnodeChildren():
+    testTree = BST()
+    testNode = TNode(2)
+    testNode.set_left(TNode(1))
+    testNode.set_right(TNode(3))
+    testNode.get_right().set_right(TNode(4))
+    testTree.set_root(testNode)
+    captured_output = StringIO()
+    sys.stdout = captured_output
+    captured_output = StringIO()
+    sys.stdout = captured_output
+    testTree.printBF()
+    output = captured_output.getvalue()
+    sys.stdout = sys.__stdout__
+    assert output == '2\n1\n3\n4\n'
 
 
-def test_AVL():
-        testTree = AVL(TNode(2))
-        testTree.Insert(5)
-        testTree.Insert(0)
-        testTree.Insert(7)
-        testTree.Insert(6)
-        print("Testing Breadth First Search after inserting the values 2, 5, 0, 7, and 6:")
-        captured_output = StringIO()
-        sys.stdout = captured_output
-        captured_output = StringIO()
-        sys.stdout = captured_output
-        testTree.printBF()
-        output = captured_output.getvalue()
-        sys.stdout = sys.__stdout__
-        assert output == "Data: 2, Balance: -1\nData: 0, Balance: 0\nData: 6, Balance: 0\nData: 5, Balance: 0\nData: 7, Balance: 0\n"
+def test_BSTInsertParamsandBreadthFirst():
+    testTree = BST()
+    testNode = TNode(6)
+    testTree.Insert(testNode)
+    testTree.Insert(4)
+    testTree.Insert(9)
+    captured_output = StringIO()
+    sys.stdout = captured_output
+    captured_output = StringIO()
+    sys.stdout = captured_output
+    testTree.printBF()
+    output = captured_output.getvalue()
+    sys.stdout = sys.__stdout__
+    assert output == '6\n4\n9\n'
+
+
+
+def test_BSTprintinOrder():
+    # Testing print in order function
+    testTree = BST()
+    testNode = TNode(6)
+    testTree.Insert(testNode)
+    testTree.Insert(4)
+    testTree.Insert(9)
+    captured_output = StringIO()
+    sys.stdout = captured_output
+    captured_output = StringIO()
+    sys.stdout = captured_output
+    testTree.printInOrder()
+    output = captured_output.getvalue()
+    sys.stdout = sys.__stdout__
+    assert output == '4\n6\n9\n'
+
+    # Testing delete function
+
+
+def test_BSTDelete():
+    testTree = BST()
+    testTree.Insert(2)
+    testTree.Insert(5)
+    testTree.Insert(7)
+    testTree.Insert(11)
+    testTree.Insert(1)
+    testTree.Insert(3)
+    testTree.delete(5)
+    result = testTree.search(5)
+    assert (result == None)
+
+
+def test_BSTSearch():
+    testTree = BST(TNode(2))
+    testNode = TNode(5)
+    testTree.Insert(testNode)
+    testTree.Insert(0)
+    testTree.Insert(7)
+    testTree.Insert(6)
+    resultNode = testTree.search(5)
+    assert resultNode.get_data() == testNode.get_data()
+
+# Testing AVL search function. This assumes that the search function returns None if the value is not found.
+def test_BSTSearchNone():
+    testTree = BST(TNode(2))
+    testNode = TNode(5)
+    testTree.Insert(testNode)
+    testTree.Insert(0)
+    testTree.Insert(7)
+    testTree.Insert(6)
+    resultNode = testTree.search(3)
+    assert resultNode == None
+
+
+def test_BSTInsertTNodeWithChildren():
+    testTree = BST()
+    testNode = TNode(2)
+    testNode.set_left(TNode(1))
+    testNode.set_right(TNode(3))
+    testNode.get_right().set_right(TNode(4))
+    testTree.set_root(4)
+    testTree.Insert(testNode)
+    captured_output = StringIO()
+    sys.stdout = captured_output
+    captured_output = StringIO()
+    sys.stdout = captured_output
+    testTree.printBF()
+    output = captured_output.getvalue()
+    sys.stdout = sys.__stdout__
+    assert output == '4\n2\n1\n3\n4\n'
 
 
 
 
 
+# Testing AVL constructor & insertion with root value. Tests whether tree is balanced after insertion and whether balance factors are correct. 
+# Breadth first search is used to return the state of the tree.
+
+def test_AVLConstructorRootVal():
+
+    testTree = AVL(2)
+    testTree.Insert(5)
+    testTree.Insert(0)
+    testTree.Insert(7)
+    testTree.Insert(6)
+    captured_output = StringIO()
+    sys.stdout = captured_output
+    captured_output = StringIO()
+    sys.stdout = captured_output
+    testTree.printBF()
+    output = captured_output.getvalue()
+    sys.stdout = sys.__stdout__
+    assert output == '2\n0\n6\n5\n7\n'
+
+
+# Testing AVL constructor & insertion with root node. Tests whether tree is balanced after insertion and whether balance factors are correct.
+# PrintInOrder is used to return the state of the tree.
+
+def test_AVLConstructorRootNodeandPrintInOrder():
+    testTree = AVL(TNode(2))
+    testTree.Insert(5)
+    testTree.Insert(0)
+    testTree.Insert(7)
+    testTree.Insert(6)
+    captured_output = StringIO()
+    sys.stdout = captured_output
+    captured_output = StringIO()
+    sys.stdout = captured_output
+    testTree.printInOrder()
+    output = captured_output.getvalue()
+    sys.stdout = sys.__stdout__
+    assert output == '0\n2\n5\n6\n7\n'
 
 
 
 
 
+# Testing AVL search function. This assumes that the search function returns the node with the correct data value.
+def test_AVLSearch():
+    testTree = AVL(TNode(2))
+    testNode = TNode(5)
+    testTree.Insert(testNode)
+    testTree.Insert(0)
+    testTree.Insert(7)
+    testTree.Insert(6)
+    resultNode = testTree.search(5)
+    assert resultNode.get_data() == testNode.get_data()
 
-if __name__ == "__main__":
+# Testing AVL search function. This assumes that the search function returns None if the value is not found.
+def test_AVLSearchNone():
+    testTree = AVL(TNode(2))
+    testNode = TNode(5)
+    testTree.Insert(testNode)
+    testTree.Insert(0)
+    testTree.Insert(7)
+    testTree.Insert(6)
+    resultNode = testTree.search(3)
+    assert resultNode == None
 
-    print("Testing BST \n")
-    test_BST()
-    print("Testing TNode \n")
-    test_Tnode()
 
+# Testing get root function
+
+
+def test_AVLGetRoot():
+    test_Tnode = TNode(2)
+    testTree = AVL(test_Tnode)
+    returnedNode = testTree.get_root()
+    assert returnedNode == test_Tnode
+
+
+# Testing if setting root node to a tnode with children works. This assumes that the left and right children of the tnode are correctly placed as well.
+def test_AVLSetRootTnodeChildren():
+    testTree = AVL()
+    testNode = TNode(2)
+    testNode.set_left(TNode(1))
+    testNode.set_right(TNode(3))
+    testNode.get_right().set_right(TNode(4))
+    testTree.set_root(testNode)
+    print("Testing Breadth First Search after setting root node to a TNode with children 1 and 3:")
+    captured_output = StringIO()
+    sys.stdout = captured_output
+    captured_output = StringIO()
+    sys.stdout = captured_output
+    testTree.printBF()
+    output = captured_output.getvalue()
+    sys.stdout = sys.__stdout__
+    assert output == '2\n1\n3\n4\n'
+
+
+def test_AVLConstructorRootTnodeChildrenandBreadthFirst():
+
+    testNode = TNode(2)
+    testNode.set_left(TNode(1))
+    testNode.set_right(TNode(3))
+    testNode.get_right().set_right(TNode(4))
+    testTree = AVL(testNode)
+    captured_output = StringIO()
+    sys.stdout = captured_output
+    captured_output = StringIO()
+    sys.stdout = captured_output
+    testTree.printBF()
+    output = captured_output.getvalue()
+    sys.stdout = sys.__stdout__
+    assert output == '2\n1\n3\n4\n'
+
+def test_AVLInsertTNodeWithChildren():
+    testTree = AVL()
+    testNode = TNode(2)
+    testNode.set_left(TNode(1))
+    testNode.set_right(TNode(3))
+    testNode.get_right().set_right(TNode(4))
+    testTree.set_root(4)
+    testTree.Insert(testNode)
+    captured_output = StringIO()
+    sys.stdout = captured_output
+    captured_output = StringIO()
+    sys.stdout = captured_output
+    testTree.printBF()
+    output = captured_output.getvalue()
+    sys.stdout = sys.__stdout__
+    assert output == '2\n1\n4\n3\n4\n'
