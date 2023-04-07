@@ -94,7 +94,7 @@ class doublyCLL(doublyLL):
 
     def SortedInsert(self, node):
         if (self.isSorted() != True):
-            self.sort()
+            self.Sort()
         if self.head is None: # The list is empty, so insert the node at the beginning
             self.head = node
             self.tail = node
@@ -216,6 +216,11 @@ class doublyCLL(doublyLL):
         self.size = 0
     
     def Print(self):
+        if self.head is None:
+            print("List size: 0")
+            print("Sorted: Yes")
+            print("List content: ")
+            return
         print("List Length:", self.size)
         print("Sorted Status:", self.isSorted())
         if self.head is not None:

@@ -255,6 +255,11 @@ class doublyLL:
         self.size = 0
     
     def Print(self):
+        if self.head is None:
+            print("List size: 0")
+            print("Sorted: Yes")
+            print("List content: ")
+            return
         current_node = self.head
         print("List size:", self.size)
         print("Sorted:", self.isSorted())

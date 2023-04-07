@@ -228,6 +228,12 @@ class SLL:
 
     def Print(self):
         """Print the list information on the screen."""
+        if self.head is None:
+            print("List size: 0")
+            print("Sorted: Yes")
+            print("List content: ")
+            return
+
         # Print the list length
         print("List size:", self.size)
         self.is_Sorted()
