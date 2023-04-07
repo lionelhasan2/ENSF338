@@ -10,9 +10,9 @@ from SLL import SLL
 from CSLL import CSLL
 from LLQueue import LLQueue
 
-from LLStack import StackList
-from CDLL import CircularDoublyLinkedList
-from DLL import DoublyLinkedList
+from LLStack import LLStack
+from CDLL import doublyCLL
+from DLL import doublyLL
 
 from nodes.Dnode import DNode
 
@@ -89,7 +89,7 @@ def testLLQueue():
     testLLQueue.Print()
 
 def testDLL():
-    dll = DoublyLinkedList(DNode(0)) #uses the 2nd constructor
+    dll = doublyLL(DNode(0)) #uses the 2nd constructor
     dll.InsertHead(DNode(-5))
     dll.Insert(DNode(6), 2)
     dll.InsertTail(DNode(3))
@@ -101,101 +101,107 @@ def testDLL():
     dll.Print() #SHOULD PRINT -5,0,3,6,6
     print()
 
-    # dll.SortedInsert(DNode(-1))
-    # dll.Print() #SHOULD PRINT -5,-1,0,3,6,6
-    # print()
-
-    # print("Search node with value 7:", dll.Search(DNode(7))) #should return None
-    # print("Search node with value 6:", dll.Search(DNode(6))) #should return object
-    # print()
-
-    # dll.DeleteHead() 
-    # dll.Print() #SHOULD PRINT -1,0,3,6,6
-    # print()
-
-    # dll.DeleteTail() 
-    # dll.Print() #SHOULD PRINT -1,0,3,6
-    # print()
-
-    # dll.Delete(DNode(0))
-    # dll.Print() #SHOULD PRINT -1,3,6
-    # print()
-
-    # dll.Clear()
-    # dll.Print() #NOTHING IN LIST
-
-def testCDLL():
-    dll = CircularDoublyLinkedList(DNode(0))
-    dll.InsertHead(DNode(-5))
-    dll.Insert(DNode(6), 2)
-    dll.InsertTail(DNode(3))
-    dll.Insert(DNode(6), 1)
-    dll.Print() #prints 6, -5, 6, 0, 3
+    dll.SortedInsert(DNode(-1))
+    dll.Print() #SHOULD PRINT -5,-1,0,3,6,6
     print()
-
-    # dll.sort()
-    # dll.Print() #SHOULD PRINT 
-    # print()
-
-    # dll.SortedInsert(DNode(-1))
-    # dll.Print() #SHOULD PRINT 
-    # print()
-
-    # print("Search node with value 7:", dll.Search(DNode(7))) #should return None
-    # print("Search node with value 0:", dll.Search(DNode(0))) #should return object
-    # print()
-
-    # dll.DeleteHead() 
-    # dll.Print() #prints  -5, 6, 0, 3
-    # print()
-
-    # dll.DeleteTail()  #prints  -5, 6, 0
-    # dll.Print()
-    # print()
-
-    # dll.Delete(DNode(0)) #NEEDS FIXING
-    # dll.Print()
-    # print()
-
-    # dll.Clear()
-    # dll.Print()
-
-def testLLStack():
-    dll = StackList(DNode(0)) #uses the 2nd constructor
-    dll.Push(DNode(-5))
-    dll.Push(DNode(3))
-    dll.Insert(DNode(6), 1) #SHOULD NOT WORK
-    dll.Insert(DNode(6), 2) #SHOULD NOT WORK
-    dll.Print() #3,-5,0
-    print()
-
-    dll.Sort() #Should not wokr
-    dll.SortedInsert(DNode(-1)) #should not work
 
     print("Search node with value 7:", dll.Search(DNode(7))) #should return None
-    print("Search node with value 0:", dll.Search(DNode(0))) #should return the object
+    print("Search node with value 6:", dll.Search(DNode(6))) #should return object
     print()
 
-    dll.Pop() 
-    dll.Print() #should print -5, 0
+    dll.DeleteHead() 
+    dll.Print() #SHOULD PRINT -1,0,3,6,6
     print()
 
     dll.DeleteTail() 
-    dll.Delete(DNode(-5)) #Should not work
+    dll.Print() #SHOULD PRINT -1,0,3,6
+    print()
+
+    dll.Delete(DNode(0))
+    dll.Print() #SHOULD PRINT -1,3,6
     print()
 
     dll.Clear()
     dll.Print() #NOTHING IN LIST
 
+def testCDLL():
+    cdll = doublyCLL(DNode(0))
+    cdll.InsertHead(DNode(-5))
+    cdll.Insert(DNode(5), 2)
+    cdll.InsertTail(DNode(3))
+    cdll.Insert(DNode(6), 2)
+    cdll.Print()
+    print()
 
+    cdll.Sort()
+    cdll.Print() #SHOULD PRINT 
+    print()
+
+    cdll.SortedInsert(DNode(5))
+    cdll.Print() #SHOULD PRINT 
+    print()
+
+    print("Search node with value 7:", cdll.Search(DNode(7))) #should return None
+    print("Search node with value 3:", cdll.Search(DNode(3))) #should return object
+    print()
+
+    cdll.DeleteHead() 
+    cdll.Print() #prints  -1, 0, 3, 6, 6
+    print()
+
+    cdll.DeleteTail()  #prints  -1, 0, 3, 6
+    cdll.Print()
+    print()
+
+    cdll.Delete(DNode(5)) #prints -1, 3, 6
+    cdll.Print()
+    print()
+
+    cdll.Clear()
+
+def testLLStack():
+    stack = LLStack(DNode(0)) #uses the 2nd constructor
+    stack.Push(DNode(-5))
+    stack.Push(DNode(3))
+    stack.Insert(DNode(6), 2) #SHOULD NOT WORK
+    stack.Print() #3,-5,0
+    print()
+
+    stack.Sort() #Should not work
+    stack.SortedInsert(DNode(-1)) #should not work
+    stack.Print()
+    print()
+
+    print("Search node with value 7:", stack.Search(DNode(7))) #should return None
+    print("Search node with value 0:", stack.Search(DNode(0))) #should return the object
+    print()
+
+    stack.Pop() 
+    stack.Print() #should print -5, 0
+    print()
+
+    stack.DeleteTail() #should not work
+    stack.Delete(DNode(-5)) #Should not work
+
+    stack.Clear()
 
 if __name__ == "__main__":
 
+    print("Testing DLL \n")
+    testDLL()
+    print()
 
+    print("Testing CDLL \n")
+    testCDLL()
 
+    # print("Testing StackLL \n")
+    # testLLStack()
 
-    print("Testing LLQueue \n")
-    testLLQueue()
+    # print("Testing SLL \n")
+    # testSLL()
+
+    # print("Testing LLQueue \n")
+    # testLLQueue()
 
 
 
