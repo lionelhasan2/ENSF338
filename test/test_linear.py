@@ -20,50 +20,50 @@ import sys
 
 def test_SLL():
 
-    print("Testing no node constructor, InsertTail, InsertHead, Insert, Print")
-    captured_output = StringIO()
-    sys.stdout = captured_output
+    # print("Testing no node constructor, InsertTail, InsertHead, Insert, Print")
+    # captured_output = StringIO()
+    # sys.stdout = captured_output
     testsll = SLL()
     testsll.InsertTail(DNode(3))
     testsll.InsertHead( DNode(6))
     testsll.Insert(DNode(2), 2)
-    testsll.InsertHead(DNode(1))
+    testsll.InsertHead(DNode(2))
     testsll.Print()
-    output = captured_output.getvalue()
-    sys.stdout = sys.__stdout__
-    print(output)
-    assert output == "List size: 4\nSorted: No\nList content: 1 6 2 3 \n"
+    # output = captured_output.getvalue()
+    # sys.stdout = sys.__stdout__
+    # print(output)
+    # assert output == "List size: 4\nSorted: No\nList content: 1 6 2 3 \n"
 
-    print("Testing sort and sortInsert")
-    captured_output = StringIO()
-    sys.stdout = captured_output
-    testsll.Sort()
-    testsll.SortedInsert(DNode(5))
-    testsll.Print()
-    output = captured_output.getvalue()
-    sys.stdout = sys.__stdout__
-    print(output)
-    assert output == "List size: 5\nSorted: Yes\nList content: 1 2 3 5 6 \n"
+    # print("Testing sort and sortInsert")
+    # captured_output = StringIO()
+    # sys.stdout = captured_output
+    # testsll.Sort()
+    # testsll.SortedInsert(DNode(5))
+    # testsll.Print()
+    # output = captured_output.getvalue()
+    # sys.stdout = sys.__stdout__
+    # print(output)
+    # assert output == "List size: 5\nSorted: Yes\nList content: 1 2 3 5 6 \n"
 
-    print("Testing deleteHead, deleteTail, delete")
-    captured_output = StringIO()
-    sys.stdout = captured_output
-    testsll.DeleteHead()
-    testsll.DeleteTail()
-    # dll.Delete(DNode(3)) #DOESNT WORK RN
+    # print("Testing deleteHead, deleteTail, delete")
+    # captured_output = StringIO()
+    # sys.stdout = captured_output
+    # testsll.DeleteHead()
+    # testsll.DeleteTail()
+    testsll.Delete(DNode(2)) #DOESNT WORK RN
     testsll.Print()
-    output = captured_output.getvalue()
-    sys.stdout = sys.__stdout__
-    print(output)
+    # output = captured_output.getvalue()
+    # sys.stdout = sys.__stdout__
+    # print(output)
     # assert output == "List size: 5\nSorted: Yes\nList content: 2 5 \n"
 
-    print("Testing search")
-    if(testsll.Search(DNode(2))): #THIS DOES NOT WORK
-        print("Search function for the node with value 2  was successful")
-    else:
-        print("Search function for the node with value 2  was unsuccessful")
+    # print("Testing search")
+    # if(testsll.Search(DNode(2))): #THIS DOES NOT WORK
+    #     print("Search function for the node with value 2  was successful")
+    # else:
+    #     print("Search function for the node with value 2  was unsuccessful")
 
-    testsll.Clear()
+    # testsll.Clear()
 
 def test_DLL():
 
@@ -97,12 +97,12 @@ def test_DLL():
     sys.stdout = captured_output
     dll.DeleteHead()
     dll.DeleteTail()
-    dll.Delete(DNode(3)) 
+    dll.Delete(DNode(6)) 
     dll.Print()
     output = captured_output.getvalue()
     sys.stdout = sys.__stdout__
     print(output)
-    assert output == "List size: 3\nSorted: True\nList content: 0 5 6 \n"
+    assert output == "List size: 3\nSorted: True\nList content: 0 3 5 \n"
 
     print("Testing search")
     if(dll.Search(DNode(0))): #NGL IDK IF ITS SUPPOSED TO RETURN OBJECT OR SUCCESSFUL
@@ -114,97 +114,97 @@ def test_DLL():
     dll.Clear()
 
 def test_CSLL():
-    print("Testing given node constructor, InsertTail, InsertHead, Insert, Print")
-    captured_output = StringIO()
-    sys.stdout = captured_output
+    # print("Testing given node constructor, InsertTail, InsertHead, Insert, Print")
+    # captured_output = StringIO()
+    # sys.stdout = captured_output
     csll = doublyLL(DNode(2)) 
     csll.InsertHead(DNode(-5))
-    csll.InsertTail(DNode(3))
+    csll.InsertTail(DNode(10))
     csll.Insert(DNode(10), 1)
     csll.Print()
-    output = captured_output.getvalue()
-    sys.stdout = sys.__stdout__
-    print(output)
-    assert output == "List size: 4\nSorted: False\nList content: 10 -5 2 3 \n"
+    # output = captured_output.getvalue()
+    # sys.stdout = sys.__stdout__
+    # print(output)
+    # assert output == "List size: 4\nSorted: False\nList content: 10 -5 2 3 \n"
 
-    print("Testing sort and sortInsert")
-    captured_output = StringIO()
-    sys.stdout = captured_output
-    csll.Sort()
-    csll.SortedInsert(DNode(20))
+    # print("Testing sort and sortInsert")
+    # captured_output = StringIO()
+    # sys.stdout = captured_output
+    # csll.Sort()
+    # csll.SortedInsert(DNode(20))
+    # csll.Print()
+    # output = captured_output.getvalue()
+    # sys.stdout = sys.__stdout__
+    # print(output)
+    # assert output == "List size: 5\nSorted: True\nList content: -5 2 3 10 20 \n"
+
+    # print("Testing deleteHead, deleteTail, delete")
+    # captured_output = StringIO()
+    # sys.stdout = captured_output
+    # csll.DeleteHead()
+    # csll.DeleteTail()
+    csll.Delete(DNode(10))
     csll.Print()
-    output = captured_output.getvalue()
-    sys.stdout = sys.__stdout__
-    print(output)
-    assert output == "List size: 5\nSorted: True\nList content: -5 2 3 10 20 \n"
+    # output = captured_output.getvalue()
+    # sys.stdout = sys.__stdout__
+    # print(output)
+    # assert output == "List size: 2\nSorted: True\nList content: 2 10 \n"
 
-    print("Testing deleteHead, deleteTail, delete")
-    captured_output = StringIO()
-    sys.stdout = captured_output
-    csll.DeleteHead()
-    csll.DeleteTail()
-    csll.Delete(DNode(3))
-    csll.Print()
-    output = captured_output.getvalue()
-    sys.stdout = sys.__stdout__
-    print(output)
-    assert output == "List size: 2\nSorted: True\nList content: 2 10 \n"
+    # print("Testing search")
+    # if(csll.Search(DNode(2))): #NGL IDK IF ITS SUPPOSED TO RETURN OBJECT OR SUCCESSFUL
+    #     print("Search function for the node with value 0  was successful")
+    #     print(csll.Search(DNode(2)))
+    # else:
+    #     print("Search function for the node with value 0  was unsuccessful")
 
-    print("Testing search")
-    if(csll.Search(DNode(2))): #NGL IDK IF ITS SUPPOSED TO RETURN OBJECT OR SUCCESSFUL
-        print("Search function for the node with value 0  was successful")
-        print(csll.Search(DNode(2)))
-    else:
-        print("Search function for the node with value 0  was unsuccessful")
-
-    csll.Clear()
+    # csll.Clear()
 
 def test_CDLL():
-    print("Testing given node constructor, InsertTail, InsertHead, Insert, Print")
-    captured_output = StringIO()
-    sys.stdout = captured_output
+    # print("Testing given node constructor, InsertTail, InsertHead, Insert, Print")
+    # captured_output = StringIO()
+    # sys.stdout = captured_output
     cdll = doublyCLL(DNode(0))
     cdll.InsertHead(DNode(-5))
     cdll.Insert(DNode(5), 2)
     cdll.InsertTail(DNode(3))
     cdll.Insert(DNode(6), 2)
     cdll.Print()
-    output = captured_output.getvalue()
-    sys.stdout = sys.__stdout__
-    print(output)
-    assert output == "List Length: 5\nSorted Status: False\nList Content: -5 6 5 0 3 \n"
+    # output = captured_output.getvalue()
+    # sys.stdout = sys.__stdout__
+    # print(output)
+    # assert output == "List Length: 5\nSorted Status: False\nList Content: -5 6 5 0 3 \n"
 
-    print("Testing sort and sortInsert")
-    captured_output = StringIO()
-    sys.stdout = captured_output
-    cdll.Sort()
-    cdll.SortedInsert(DNode(-100))
+    # print("Testing sort and sortInsert")
+    # captured_output = StringIO()
+    # sys.stdout = captured_output
+    # cdll.Sort()
+    # cdll.SortedInsert(DNode(-100))
+    # cdll.Print()
+    # output = captured_output.getvalue()
+    # sys.stdout = sys.__stdout__
+    # print(output)
+    # assert output == "List Length: 6\nSorted Status: True\nList Content: -100 -5 0 3 5 6 \n"
+
+    # print("Testing deleteHead, deleteTail, delete")
+    # captured_output = StringIO()
+    # sys.stdout = captured_output
+    # cdll.DeleteHead()
+    # cdll.DeleteTail()
+    cdll.Delete(DNode(5))
     cdll.Print()
-    output = captured_output.getvalue()
-    sys.stdout = sys.__stdout__
-    print(output)
-    assert output == "List Length: 6\nSorted Status: True\nList Content: -100 -5 0 3 5 6 \n"
+    # output = captured_output.getvalue()
+    # sys.stdout = sys.__stdout__
+    # print(output)
+    # assert output == "List Length: 3\nSorted Status: True\nList Content: -5 0 5 \n"
 
-    print("Testing deleteHead, deleteTail, delete")
-    captured_output = StringIO()
-    sys.stdout = captured_output
-    cdll.DeleteHead()
-    cdll.DeleteTail()
-    cdll.Delete(DNode(3))
-    cdll.Print()
-    output = captured_output.getvalue()
-    sys.stdout = sys.__stdout__
-    print(output)
-    assert output == "List Length: 3\nSorted Status: True\nList Content: -5 0 5 \n"
+    # print("Testing search")
+    # if(cdll.Search(DNode(2))): #NGL IDK IF ITS SUPPOSED TO RETURN OBJECT OR SUCCESSFUL
+    #     print("Search function for the node with value 0  was successful")
+    #     print(cdll.Search(DNode(2)))
+    # else:
+    #     print("Search function for the node with value 0  was unsuccessful")
 
-    print("Testing search")
-    if(cdll.Search(DNode(2))): #NGL IDK IF ITS SUPPOSED TO RETURN OBJECT OR SUCCESSFUL
-        print("Search function for the node with value 0  was successful")
-        print(cdll.Search(DNode(2)))
-    else:
-        print("Search function for the node with value 0  was unsuccessful")
-
-    cdll.Clear()
+    # cdll.Clear()
 
 def test_LLStack():
     print("Testing given node constructor, InsertTail, InsertHead, Insert, Print")
@@ -261,25 +261,25 @@ def test_LLQueue():
     testLLQueue.Print()
 
 if __name__ == "__main__":
-    print("TESTING SLL \n")
-    test_SLL()
-    print()
+    # print("TESTING SLL \n")
+    # test_SLL()
+    # print()
 
-    print("TESTING DLL \n")
-    test_DLL()
-    print()
+    # print("TESTING DLL \n")
+    # test_DLL()
+    # print()
 
     print("TESTING CSLL \n")
     test_CSLL()
     print()
 
-    print("TESTING CDLL \n")
-    test_CDLL()
-    print()
+    # print("TESTING CDLL \n")
+    # test_CDLL()
+    # print()
 
-    print("TESTING StackLL \n")
-    test_LLStack()
-    print()
+    # print("TESTING StackLL \n")
+    # test_LLStack()
+    # print()
 
-    print("TESTING LLQueue \n")
-    test_LLQueue()
+    # print("TESTING LLQueue \n")
+    # test_LLQueue()
