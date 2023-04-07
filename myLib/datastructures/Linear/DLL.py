@@ -51,7 +51,7 @@ class doublyLL:
             self.size += 1
 
     # need to change implemntation to start at head instead of traversing backwards!!!!!!!!!!!!
-    def sort(self):
+    def Sort(self):
         if (self.isSorted() == True):
             return
         if self.head is None or self.head.next is None:
@@ -114,7 +114,7 @@ class doublyLL:
     #THIS DOES NOT WORK
     def SortedInsert(self, node):
         if (self.isSorted() != True):
-            self.sort()
+            self.Sort()
         if self.head is None: # The list is empty, so insert the node at the beginning
             self.head = node
             self.tail = node
@@ -203,9 +203,9 @@ class doublyLL:
     
     def Print(self):
         current_node = self.head
-        print("The size of the doubly linked list is:", self.size)
-        print("The doubly linked list is sorted:", self.isSorted())
-        print(f"Contents of List: ", end=" ")
+        print("List size:", self.size)
+        print("Sorted:", self.isSorted())
+        print(f"List content:", end=" ")
         while current_node is not None:
             print(current_node.val, end=" ")
             current_node = current_node.next

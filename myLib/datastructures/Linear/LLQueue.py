@@ -5,7 +5,7 @@ parent_dir = Path(__file__).resolve().parent.parent
 sys.path.append(str(parent_dir))
 
 from nodes.Dnode import DNode
-from SLL import SLL
+from Linear.SLL import SLL
 
 
 class LLQueue(SLL):

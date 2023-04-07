@@ -4,7 +4,7 @@ from pathlib import Path
 parent_dir = Path(__file__).resolve().parent.parent
 sys.path.append(str(parent_dir))
 
-from SLL import SLL
+from Linear.SLL import SLL
 
 class LLStack(SLL):
 

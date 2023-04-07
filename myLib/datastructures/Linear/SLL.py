@@ -12,7 +12,7 @@ class SLL:
 
     def __init__(self, node = None):
         self.head = node
-        self.size = 1
+        self.size = 1 if node else 0
         self.tail = node
         self.sorted = False
 
@@ -198,7 +198,6 @@ class SLL:
                 print(current_node.val, end=" ")
                 current_node = current_node.next
             print()
-        print()
 
     def SortedInsert(self, new_node):
         # If the list is empty, set the new node as the head
