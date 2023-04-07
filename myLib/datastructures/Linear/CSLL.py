@@ -136,33 +136,53 @@ class CSLL():
             last_node.next = second_node
         self.size -=1
     
+    # def Delete(self, node):
+    #     """Delete the given node from the circular linked list."""
+    #     if not self.head:
+    #         # If the list is empty, there's nothing to delete
+    #         return
+
+    #     if self.head == node:
+    #         # If the node to delete is the head, update the head to point to the next node
+    #         self.head = self.head.next
+    #         return
+
+    #     current_node = self.head
+    #     while current_node.next != self.head:
+    #         if current_node.next == node:
+    #             # If the next node is the one to delete, update the current node's next pointer to skip over it
+    #             current_node.next = current_node.next.next
+    #             return
+    #         current_node = current_node.next
+
+    #     # Check if the node to be deleted is the last node
+    #     if current_node.next == self.head and current_node.next == node:
+    #         current_node.next = self.head.next
+    #         self.head = self.head.next
+    #         return
+
+    #     # If we reach the head again without finding the node, it's not in the list
+    #     return
+
     def Delete(self, node):
-        """Delete the given node from the circular linked list."""
-        if not self.head:
-            # If the list is empty, there's nothing to delete
-            return
-
-        if self.head == node:
-            # If the node to delete is the head, update the head to point to the next node
-            self.head = self.head.next
-            return
-
-        current_node = self.head
-        while current_node.next != self.head:
-            if current_node.next == node:
-                # If the next node is the one to delete, update the current node's next pointer to skip over it
-                current_node.next = current_node.next.next
+        i = 0
+        node_occurrences = self.count_node_occurrences(node)
+        while i < node_occurrences:
+            if self.head is None: # empty
                 return
-            current_node = current_node.next
-
-        # Check if the node to be deleted is the last node
-        if current_node.next == self.head and current_node.next == node:
-            current_node.next = self.head.next
-            self.head = self.head.next
-            return
-
-        # If we reach the head again without finding the node, it's not in the list
-        return
+            elif self.head.val == node.val: # node to delete is the head node
+                self.DeleteHead()
+            # elif self.tail.val == node.val: # node to delete is the tail node
+            #     self.DeleteTail()
+            else:
+                current_node = self.head
+                while current_node.next != self.head:
+                    if current_node.next.val == node.val:
+                        current_node.next = current_node.next.next
+                        self.size -= 1
+                        break
+                    current_node = current_node.next 
+            i += 1
 
     def Sort(self):
 
@@ -284,3 +304,34 @@ class CSLL():
         new_node.next = curr.next
         curr.next = new_node
         self.size +=1
+    
+    def count_node_occurrences(self,node):
+        """
+        Counts the number of occurrences of a given node in a circular doubly linked list.
+
+        Args:
+        - node: the node to search for in the list.
+
+        Returns:
+        - The number of occurrences of the node in the list.
+        """
+
+        count = 0
+        current_node = self.head
+
+        if current_node is None:
+            # The list is empty, so there can be no occurrences of the node.
+            return 0
+
+        # Traverse the list from the head node until we reach it again.
+        while True:
+            if current_node.val == node.val:
+                count += 1
+
+            current_node = current_node.next
+
+            if current_node == self.head:
+                # We've reached the end of the list and circled back to the head.
+                break
+
+        return count
