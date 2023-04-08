@@ -6,8 +6,9 @@ sys.path.append(str(parent_dir))
 
 
 from nodes.Dnode import DNode
+from Linear.SLL import SLL
 
-class CSLL():
+class CSLL(SLL):
 
 
     def __init__(self,node =None):

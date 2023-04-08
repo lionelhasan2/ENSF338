@@ -59,12 +59,12 @@ class BST:
 
 
 
-    def delete(self, val):
+    def Delete(self, val):
         if self.root is None:
             return
-
-        node = self.search(val)
+        node = self.Search(val)
         if node is None:
+            print("The node with value " + str(val) + " does not exist in the tree.")
             return
 
         parent = node.parent
@@ -97,6 +97,7 @@ class BST:
                 parent.right = node.left
             node.left.parent = parent
 
+
         # case 3: node has both left and right children
         else:
             # find the node with the smallest value in the right subtree
@@ -112,8 +113,10 @@ class BST:
                 temp.parent.right = temp.right
             if temp.right is not None:
                 temp.right.parent = temp.parent
+        if self.Search(val) is not None:
+            self.Delete(val)
 
-    def search(self, val):
+    def Search(self, val):
         current = self.root
         while current is not None:
             if val == current.data:
@@ -124,17 +127,26 @@ class BST:
                 current = current.right
         return None
 
-    def printInOrder(self, node=None):
+    def printInOrder(self):
+        node = self.root
         if node is None:
-            node = self.root
+            return
 
-        if node.left is not None:
-            self.printInOrder(node.left)
+        stack = []
+        current = node
 
-        print(node.toString(), end="\n")
+        while True:
+            if current is not None:
+                stack.append(current)
+                current = current.left
+            elif stack:
+                current = stack.pop()
+                print(current.toString(), end="\n")
+                current = current.right
+            else:
+                break
 
-        if node.right is not None:
-            self.printInOrder(node.right)
+
 
 
     def printBF(self):

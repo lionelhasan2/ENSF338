@@ -27,6 +27,7 @@ class LLQueue(SLL):
             return
         self.tail.next = new_node
         self.tail = new_node
+        self.size += 1
 
     def dequeue(self):
         if self.is_empty():
@@ -36,3 +37,15 @@ class LLQueue(SLL):
         if self.head is None:
             self.tail = None
         return temp.val
+    
+    def is_Sorted(self):
+        return None
+    
+    def InsertHead(self, new_node):
+        return None
+    
+    def Sort(self):
+        return None
+    
+    def SortedInsert(self, new_node):
+        return None

@@ -204,27 +204,6 @@ class SLL:
                     current_node = current_node.next 
             i += 1
 
-    # def Delete(self, node):
-    #     """Delete the given node from the list."""
-    #     if not self.head:
-    #         # If the list is empty, there's nothing to delete
-    #         return
-
-    #     if self.head.val == node.val:
-    #         # If the node to delete is the head, update the head to point to the next node
-    #         self.head = self.head.next
-    #         return
-
-    #     current_node = self.head
-    #     while current_node.next:
-    #         if current_node.next.val == node.val:
-    #             # If the next node is the one to delete, update the current node's next pointer to skip over it
-    #             current_node.next = current_node.next.next
-    #             return
-    #         current_node = current_node.next
-
-    #     # If we reach the end of the list without finding the node, it's not in the list
-    #     return
 
     def Print(self):
         """Print the list information on the screen."""

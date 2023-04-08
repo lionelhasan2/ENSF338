@@ -660,72 +660,95 @@ def test_LLStack_Clear():
 #     stack.Clear()
 
 
-def test_LLQueue():
+def test_LLQueueEnqueDequeueClear():
     testLLQueue = LLQueue()
     testLLQueue.enqueue(DNode(3))
     testLLQueue.enqueue(DNode(6))
     testLLQueue.enqueue(DNode(2))
+
+    captured_output = StringIO()
+    sys.stdout = captured_output
     testLLQueue.Print()
+    output = captured_output.getvalue()
+    sys.stdout = sys.__stdout__
+    assert output == "List size: 3\nSorted: No\nList content: 3 6 2 \n"
+
     testLLQueue.enqueue(DNode(1))
     testLLQueue.enqueue(DNode(5))
     testLLQueue.enqueue(DNode(9))
     testLLQueue.enqueue(DNode(12))
+    dequeueNodeVal = testLLQueue.dequeue()
+
+
+    captured_output = StringIO()
+    sys.stdout = captured_output
     testLLQueue.Print()
-    print("Dequeueing: " + str(testLLQueue.dequeue())+"\n")
-    print("Dequeueing: " + str(testLLQueue.dequeue())+"\n")
+    output = captured_output.getvalue()
+    sys.stdout = sys.__stdout__
+    assert output == 'List size: 7\nSorted: No\nList content: 6 2 1 5 9 12 \n'
+    assert dequeueNodeVal == 3
+
+    testLLQueue.Clear()
+    captured_output = StringIO()
+    sys.stdout = captured_output
     testLLQueue.Print()
+    output = captured_output.getvalue()
+    sys.stdout = sys.__stdout__
+    assert output == 'List size: 0\nSorted: Yes\nList content: \n'
 
 if __name__ == "__main__":
-    print("TESTING SLL \n")
-    test_SLL_ConstructorsandInserters()
-    test_SLL_Sort()
-    test_SLL_SortInsert()
-    test_SLL_Delete()
-    test_SLL_Search()
-    test_SLL_Clear()
-    # test_SLL()
-    # print()
+    # print("TESTING SLL \n")
+    # test_SLL_ConstructorsandInserters()
+    # test_SLL_Sort()
+    # test_SLL_SortInsert()
+    # test_SLL_Delete()
+    # test_SLL_Search()
+    # test_SLL_Clear()
+    # # test_SLL()
+    # # print()
 
-    print("TESTING DLL \n")
-    test_DLL_ConstructorsandInserters()
-    test_DLL_Sort()
-    test_DLL_SortInsert()
-    test_DLL_Delete()
-    test_DLL_Search()
-    test_DLL_Clear()
-    # test_DLL()
-    # print()
+    # print("TESTING DLL \n")
+    # test_DLL_ConstructorsandInserters()
+    # test_DLL_Sort()
+    # test_DLL_SortInsert()
+    # test_DLL_Delete()
+    # test_DLL_Search()
+    # test_DLL_Clear()
+    # # test_DLL()
+    # # print()
 
-    print("TESTING CSLL \n")
-    test_CSLL_ConstructorsandInserters()
-    test_CSLL_Sort()
-    test_CSLL_SortInsert()
-    test_CSLL_Delete()
-    test_CSLL_Search()
-    test_CSLL_Clear()
     # print("TESTING CSLL \n")
-    # test_CSLL()
-    # print()
+    # test_CSLL_ConstructorsandInserters()
+    # test_CSLL_Sort()
+    # test_CSLL_SortInsert()
+    # test_CSLL_Delete()
+    # test_CSLL_Search()
+    # test_CSLL_Clear()
+    # # print("TESTING CSLL \n")
+    # # test_CSLL()
+    # # print()
 
-    print("TESTING CDLL \n")
-    test_CDLL_ConstructorsandInserters()
-    test_CDLL_Sort()
-    test_CDLL_SortInsert()
-    test_CDLL_Delete()
-    test_CDLL_Search()
-    test_CDLL_Clear()
     # print("TESTING CDLL \n")
-    # test_CDLL()
-    # print()
+    # test_CDLL_ConstructorsandInserters()
+    # test_CDLL_Sort()
+    # test_CDLL_SortInsert()
+    # test_CDLL_Delete()
+    # test_CDLL_Search()
+    # test_CDLL_Clear()
+    # # print("TESTING CDLL \n")
+    # # test_CDLL()
+    # # print()
 
-    print("TESTING LLStack \n")
-    test_LLStack_ConstructorAndPush()
-    test_LLStack_Delete()
-    test_LLStack_Search()
-    test_LLStack_Clear()
-    # print("TESTING StackLL \n")
-    # test_LLStack()
-    # print()
+    # print("TESTING LLStack \n")
+    # test_LLStack_ConstructorAndPush()
+    # test_LLStack_Delete()
+    # test_LLStack_Search()
+    # test_LLStack_Clear()
+    # # print("TESTING StackLL \n")
+    # # test_LLStack()
+    # # print()
 
     # print("TESTING LLQueue \n")
-    # test_LLQueue()
+    test_LLQueue()
+    
+

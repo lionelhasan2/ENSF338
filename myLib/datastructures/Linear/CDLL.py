@@ -5,6 +5,7 @@ parent_dir = Path(__file__).resolve().parent.parent
 sys.path.append(str(parent_dir))
 
 from Linear.DLL import doublyLL
+from nodes.Dnode import DNode
 
 class doublyCLL(doublyLL):
 
