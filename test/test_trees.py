@@ -1,10 +1,9 @@
-from myLib.datastructures.Trees.AVL import AVL
-from myLib.datastructures.Trees.BST import BST
+from myLib.datastructures.trees.AVL import AVL
+from myLib.datastructures.trees.BST import BST
 from myLib.datastructures.nodes.TNode import TNode
 import sys
 from pathlib import Path
 from io import StringIO
-import pytest
 
 
 parent_dir = Path(__file__).resolve().parent.parent

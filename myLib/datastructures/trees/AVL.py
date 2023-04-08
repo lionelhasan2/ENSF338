@@ -3,7 +3,7 @@ from pathlib import Path
 
 parent_dir = Path(__file__).resolve().parent.parent
 sys.path.append(str(parent_dir))
-from Trees.BST import BST
+from trees.BST import BST
 
 
 from myLib.datastructures.nodes.TNode import TNode
