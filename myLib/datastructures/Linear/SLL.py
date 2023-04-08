@@ -103,8 +103,6 @@ class SLL:
         self.head = new_head.next
         self.sorted = True
 
-        
-
     def Search(self, node):
         curr = self.head
         while curr:
@@ -155,32 +153,87 @@ class SLL:
             current_node = next_node
         self.head = None
 
+    def count_node_occurrences(self,node):
+        """
+        Counts the number of occurrences of a given node in a circular doubly linked list.
 
+        Args:
+        - node: the node to search for in the list.
 
-    def Delete(self, node):
-        """Delete the given node from the list."""
-        if not self.head:
-            # If the list is empty, there's nothing to delete
-            return
+        Returns:
+        - The number of occurrences of the node in the list.
+        """
 
-        if self.head == node:
-            # If the node to delete is the head, update the head to point to the next node
-            self.head = self.head.next
-            return
-
+        count = 0
         current_node = self.head
-        while current_node.next:
-            if current_node.next == node:
-                # If the next node is the one to delete, update the current node's next pointer to skip over it
-                current_node.next = current_node.next.next
-                return
+
+        if current_node is None:
+            # The list is empty, so there can be no occurrences of the node.
+            return 0
+
+        # Traverse the list from the head node until we reach it again.
+        while True:
+            if current_node.val == node.val:
+                count += 1
+
             current_node = current_node.next
 
-        # If we reach the end of the list without finding the node, it's not in the list
-        return
+            if current_node is None:
+                # We've reached the end of the list and circled back to the head.
+                break
+
+        return count
+    
+    def Delete(self, node):
+        i = 0
+        node_occurrences = self.count_node_occurrences(node)
+        while i < node_occurrences:
+            if self.head is None: # empty
+                return
+            elif self.head.val == node.val: # node to delete is the head node
+                self.DeleteHead()
+            # elif self.tail.val == node.val: # node to delete is the tail node
+            #     self.DeleteTail()
+            else:
+                current_node = self.head
+                while current_node.next is not None:
+                    if current_node.next.val == node.val:
+                        current_node.next = current_node.next.next
+                        self.size -= 1
+                        break
+                    current_node = current_node.next 
+            i += 1
+
+    # def Delete(self, node):
+    #     """Delete the given node from the list."""
+    #     if not self.head:
+    #         # If the list is empty, there's nothing to delete
+    #         return
+
+    #     if self.head.val == node.val:
+    #         # If the node to delete is the head, update the head to point to the next node
+    #         self.head = self.head.next
+    #         return
+
+    #     current_node = self.head
+    #     while current_node.next:
+    #         if current_node.next.val == node.val:
+    #             # If the next node is the one to delete, update the current node's next pointer to skip over it
+    #             current_node.next = current_node.next.next
+    #             return
+    #         current_node = current_node.next
+
+    #     # If we reach the end of the list without finding the node, it's not in the list
+    #     return
 
     def Print(self):
         """Print the list information on the screen."""
+        if self.head is None:
+            print("List size: 0")
+            print("Sorted: Yes")
+            print("List content: ")
+            return
+
         # Print the list length
         print("List size:", self.size)
         self.is_Sorted()

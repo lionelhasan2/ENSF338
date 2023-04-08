@@ -94,7 +94,7 @@ class doublyCLL(doublyLL):
 
     def SortedInsert(self, node):
         if (self.isSorted() != True):
-            self.sort()
+            self.Sort()
         if self.head is None: # The list is empty, so insert the node at the beginning
             self.head = node
             self.tail = node
@@ -135,26 +135,79 @@ class doublyCLL(doublyLL):
         self.head.prev = self.tail
         self.tail.next = self.head
 
+    # def Delete(self, node):
+    #     if self.head is None:
+    #         return
+    #     elif self.head.val == node.val: 
+    #         return self.DeleteHead()
+    #     elif self.tail.val == node.val:
+    #         return self.DeleteTail()
+    #     else:
+    #         current = self.head
+    #         while True:
+    #             if current.val == node.val:
+    #                 current.prev.next = current.next
+    #                 current.next.prev = current.prev
+    #                 self.size -= 1
+    #                 return
+    #             current = current.next
+    #             if current == self.head:
+    #                 break
+    #         print("Node is not found in existing list")
+
     def Delete(self, node):
-        if self.head is None:
-            return
-        elif self.head.val == node.val: 
-            return self.DeleteHead()
-        elif self.tail.val == node.val:
-            return self.DeleteTail()
-        else:
-            current = self.head
-            while True:
-                if current.val == node.val:
-                    current.prev.next = current.next
-                    current.next.prev = current.prev
-                    self.size -= 1
-                    return
-                current = current.next
-                if current == self.head:
-                    break
-            print("Node is not found in existing list")
+        i = 0
+        node_occurrences = self.count_node_occurrences(node)
+        while i < node_occurrences:
+            if self.head is None: # empty
+                return
+            elif node.val == self.head.val: # node to delete is the head node
+                self.DeleteHead()
+            elif node.val == self.tail.val: # node to delete is the tail node
+                self.DeleteTail()
+            else:
+                current_node = self.head
+                while current_node is not self.tail:
+                    if current_node.val == node.val:
+                        current_node.prev.next = current_node.next
+                        current_node.next.prev = current_node.prev
+                        self.size -= 1
+                        break
+                    current_node = current_node.next  
+            i += 1
                     
+
+    def count_node_occurrences(self,node):
+        """
+        Counts the number of occurrences of a given node in a circular doubly linked list.
+
+        Args:
+        - node: the node to search for in the list.
+
+        Returns:
+        - The number of occurrences of the node in the list.
+        """
+
+        count = 0
+        current_node = self.head
+
+        if current_node is None:
+            # The list is empty, so there can be no occurrences of the node.
+            return 0
+
+        # Traverse the list from the head node until we reach it again.
+        while True:
+            if current_node.val == node.val:
+                count += 1
+
+            current_node = current_node.next
+
+            if current_node == self.head:
+                # We've reached the end of the list and circled back to the head.
+                break
+
+        return count
+
     def Clear(self):
         self.head = None
         self.tail = None
@@ -163,6 +216,11 @@ class doublyCLL(doublyLL):
         self.size = 0
     
     def Print(self):
+        if self.head is None:
+            print("List size: 0")
+            print("Sorted: Yes")
+            print("List content: ")
+            return
         print("List Length:", self.size)
         print("Sorted Status:", self.isSorted())
         if self.head is not None:

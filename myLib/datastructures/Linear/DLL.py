@@ -176,32 +176,90 @@ class doublyLL:
             self.size -= 1
     
     #NGL CHECK OVER, only deletes the first instance of this node, idk
+    # def Delete(self, node):
+    #     if self.head is None: # empty
+    #         return
+    #     elif node.val == self.head.val: # node to delete is the head node
+    #         self.DeleteHead()
+    #         return
+    #     elif node.val == self.tail.val: # node to delete is the tail node
+    #         self.DeleteTail()
+    #         return
+    #     else:
+    #         current_node = self.head
+    #         while current_node is not None:
+    #             if current_node.val == node.val:
+    #                 current_node.prev.next = current_node.next
+    #                 current_node.next.prev = current_node.prev
+    #                 self.size -= 1
+    #                 return
+    #             current_node = current_node.next
+    #         print("Node is not found in existing list")         
+
+    def count_node_occurrences(self,node):
+        """
+        Counts the number of occurrences of a given node in a circular doubly linked list.
+
+        Args:
+        - node: the node to search for in the list.
+
+        Returns:
+        - The number of occurrences of the node in the list.
+        """
+
+        count = 0
+        current_node = self.head
+
+        if current_node is None:
+            # The list is empty, so there can be no occurrences of the node.
+            return 0
+
+        # Traverse the list from the head node until we reach it again.
+        while True:
+            if current_node.val == node.val:
+                count += 1
+
+            current_node = current_node.next
+
+            if current_node is None:
+                # We've reached the end of the list and circled back to the head.
+                break
+
+        return count
+
     def Delete(self, node):
-        if self.head is None: # empty
-            return
-        elif node.val == self.head.val: # node to delete is the head node
-            self.DeleteHead()
-            return
-        elif node.val == self.tail.val: # node to delete is the tail node
-            self.DeleteTail()
-            return
-        else:
-            current_node = self.head
-            while current_node is not None:
-                if current_node.val == node.val:
-                    current_node.prev.next = current_node.next
-                    current_node.next.prev = current_node.prev
-                    self.size -= 1
-                    return
-                current_node = current_node.next
-            print("Node is not found in existing list")         
-                
+        i = 0
+        node_occurrences = self.count_node_occurrences(node)
+        while i < node_occurrences:
+            if self.head is None: # empty
+                return
+            elif node.val == self.head.val: # node to delete is the head node
+                self.DeleteHead()
+            elif node.val == self.tail.val: # node to delete is the tail node
+                self.DeleteTail()
+            else:
+                current_node = self.head
+                while current_node is not None:
+                    if current_node.val == node.val:
+                        current_node.prev.next = current_node.next
+                        current_node.next.prev = current_node.prev
+                        self.size -= 1
+                        break
+                    current_node = current_node.next
+                # print("Node is not found in existing list")    
+            i += 1
+
     def Clear(self):
         self.head = None
         self.tail = None
         self.size = 0
     
     def Print(self):
+        if self.head is None:
+            print("List size: 0")
+            print("Sorted: Yes")
+            print("List content: ")
+            return
         current_node = self.head
         print("List size:", self.size)
         print("Sorted:", self.isSorted())
