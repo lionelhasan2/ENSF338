@@ -403,11 +403,12 @@ def test_LLStack_Delete():
     captured_output = StringIO()
     sys.stdout = captured_output
     stack.DeleteHead() #calls stack.pop
-    stack.Pop()
+    temp = stack.Pop()
     stack.Print()
     output = captured_output.getvalue()
     sys.stdout = sys.__stdout__
     print(output)
+    assert temp == (-5)
     assert output == "List size: 1\nSorted: Yes\nList content: 0 \n"
 
 def test_LLStack_Search():

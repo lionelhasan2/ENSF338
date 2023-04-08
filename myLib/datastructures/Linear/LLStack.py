@@ -42,7 +42,10 @@ class LLStack(SLL):
     
     # def DeleteHead(self): #CHANGED NAME TO FOLLOW STACK
     def Pop(self):
+        temp = self.head.val
         super().DeleteHead()
+        return temp
+
     
     def DeleteTail(self):
         return
