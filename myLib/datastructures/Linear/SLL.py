@@ -61,7 +61,6 @@ class SLL:
             node.next = curr_node.next
             curr_node.next = node
         self.size += 1
-    ##check over sometime 
 
 
 
@@ -104,12 +103,12 @@ class SLL:
         self.sorted = True
 
     def Search(self, node):
-        curr = self.head
-        while curr:
-            if curr == node:
-                return True
-            curr = curr.next
-        return False
+        current = self.head
+        while current is not None:
+            if current.val == node.val:
+                return current
+            current = current.next
+        return None
 
 
     def getListHead(self):
@@ -204,7 +203,6 @@ class SLL:
                     current_node = current_node.next 
             i += 1
 
-
     def Print(self):
         """Print the list information on the screen."""
         if self.head is None:
@@ -260,4 +258,3 @@ class SLL:
 
 
             
-

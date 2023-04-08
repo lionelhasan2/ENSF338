@@ -5,16 +5,20 @@ parent_dir = Path(__file__).resolve().parent.parent
 sys.path.append(str(parent_dir))
 
 from Linear.DLL import doublyLL
-from nodes.Dnode import DNode
 
 class doublyCLL(doublyLL):
 
     def __init__(self, node=None):
-        self.head = node 
-        self.size = 1 if node else 0
-        self.tail = node
-        # self.prev = node
-        # self.next = node
+        if node is not None:
+            self.head = node
+            self.tail = node
+            self.head.next = self.tail
+            self.head.prev = self.tail
+            self.size = 1
+        else:
+            self.head = None
+            self.tail = None
+            self.size = 0
 
     def InsertHead(self, new_node):
         if self.head is None: #if it is empty CDLL
@@ -72,7 +76,6 @@ class doublyCLL(doublyLL):
             current.prev = node
         self.size += 1
 
-    # CHECK OVER SORT
     def Sort(self):
         prevNode = self.head
         currNode = self.head.next
@@ -85,7 +88,7 @@ class doublyCLL(doublyLL):
             prevNode = currNode
             currNode = currNode.next
 
-    def isSorted(self): #NO CHANGE BC IM JUST TRAVERSING LIST FOWARDS FAM
+    def isSorted(self):
         current = self.head
         while current.next != self.head:
             if current.val > current.next.val:
@@ -135,26 +138,6 @@ class doublyCLL(doublyLL):
         super().DeleteTail()
         self.head.prev = self.tail
         self.tail.next = self.head
-
-    # def Delete(self, node):
-    #     if self.head is None:
-    #         return
-    #     elif self.head.val == node.val: 
-    #         return self.DeleteHead()
-    #     elif self.tail.val == node.val:
-    #         return self.DeleteTail()
-    #     else:
-    #         current = self.head
-    #         while True:
-    #             if current.val == node.val:
-    #                 current.prev.next = current.next
-    #                 current.next.prev = current.prev
-    #                 self.size -= 1
-    #                 return
-    #             current = current.next
-    #             if current == self.head:
-    #                 break
-    #         print("Node is not found in existing list")
 
     def Delete(self, node):
         i = 0
