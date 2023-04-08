@@ -86,29 +86,6 @@ class CSLL(SLL):
             curr_node.next = node
         self.size += 1
 
-        # if position < 1 or position > self.size + 1:
-        #     raise ValueError("Invalid position")
-        # if position == 1:
-        #     if not self.head:
-        #         # If the list is empty, make the new node the head and set its next pointer to itself
-        #         node.next = node
-        #         self.head = node
-        #     else:
-        #         # If the list is not empty, insert the new node at the head and update the last node's next pointer
-        #         last_node = self.head
-        #         while last_node.next != self.head:
-        #             last_node = last_node.next
-        #         node.next = self.head
-        #         self.head = node
-        #         last_node.next = node
-        # else:
-        #     curr_node = self.head
-        #     for i in range(1, position - 1):
-        #         curr_node = curr_node.next
-        #     node.next = curr_node.next
-        #     curr_node.next = node
-        # self.size += 1
-
     def Search(self, node):
         current = self.head
         while current.next != self.head:
@@ -163,34 +140,6 @@ class CSLL(SLL):
             self.head = second_node
             last_node.next = second_node
         self.size -=1
-    
-    # def Delete(self, node):
-    #     """Delete the given node from the circular linked list."""
-    #     if not self.head:
-    #         # If the list is empty, there's nothing to delete
-    #         return
-
-    #     if self.head == node:
-    #         # If the node to delete is the head, update the head to point to the next node
-    #         self.head = self.head.next
-    #         return
-
-    #     current_node = self.head
-    #     while current_node.next != self.head:
-    #         if current_node.next == node:
-    #             # If the next node is the one to delete, update the current node's next pointer to skip over it
-    #             current_node.next = current_node.next.next
-    #             return
-    #         current_node = current_node.next
-
-    #     # Check if the node to be deleted is the last node
-    #     if current_node.next == self.head and current_node.next == node:
-    #         current_node.next = self.head.next
-    #         self.head = self.head.next
-    #         return
-
-    #     # If we reach the head again without finding the node, it's not in the list
-    #     return
 
     def Delete(self, node):
         i = 0
@@ -200,8 +149,6 @@ class CSLL(SLL):
                 return
             elif self.head.val == node.val: # node to delete is the head node
                 self.DeleteHead()
-            # elif self.tail.val == node.val: # node to delete is the tail node
-            #     self.DeleteTail()
             else:
                 current_node = self.head
                 while current_node.next != self.head:
@@ -300,37 +247,6 @@ class CSLL(SLL):
             node.next = current.next
             current.next = node
             self.size += 1
-
-    # def SortedInsert(self, new_node):
-    #     """Insert a new node into the circular linked list in non-descending order."""
-    #     # If the list is empty, set the new node as the head
-    #     if not self.head:
-    #         self.head = new_node
-    #         self.head.next = self.head # make the head point to itself for circularity
-    #         self.size += 1
-    #         return
-
-    #     sort = self.is_Sorted()
-    #     if not sort:
-    #         self.Sort()
-
-    #     # If the new node's value is less than or equal to the head's value,
-    #     # insert the new node at the beginning of the list
-    #     if new_node.val <= self.head.val:
-    #         new_node.next = self.head
-    #         self.head = new_node
-    #         self.size += 1
-    #         return
-
-    #     # Find the correct position to insert the new node
-    #     curr = self.head
-    #     while (curr.next != self.head) and curr.next.val < new_node.val:
-    #         curr = curr.next
-        
-    #     # Insert the new node into the list
-    #     new_node.next = curr.next
-    #     curr.next = new_node
-    #     self.size +=1
     
     def count_node_occurrences(self,node):
         """

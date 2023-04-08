@@ -50,7 +50,6 @@ class doublyLL:
             current.next = new_node
             self.size += 1
 
-    # need to change implemntation to start at head instead of traversing backwards!!!!!!!!!!!!
     def Sort(self):
         if (self.isSorted() == True):
             return
@@ -69,39 +68,6 @@ class doublyLL:
             else:
                 self.head.val = keyData
             neighbourNode = neighbourNode.next
-
-        # sorted_tail = self.head
-        # while sorted_tail.next:
-        #     to_insert = sorted_tail.next
-        #     to_insert_prev = to_insert.prev
-        #     to_insert_next = to_insert.next
-
-        #     if to_insert.val >= sorted_tail.val:
-        #         sorted_tail = sorted_tail.next
-        #     else:
-        #         # Remove to_insert from the list
-        #         to_insert_prev.next = to_insert_next
-        #         if to_insert_next:
-        #             to_insert_next.prev = to_insert_prev
-
-        #         # Find the insertion point
-        #         insertion_point = self.head
-        #         while insertion_point and insertion_point.val < to_insert.val:
-        #             insertion_point = insertion_point.next
-
-        #         # Insert the node
-        #         if insertion_point == self.head:
-        #             to_insert.next = self.head
-        #             self.head.prev = to_insert
-        #             self.head = to_insert
-        #         else:
-        #             to_insert.prev = insertion_point.prev
-        #             to_insert.next = insertion_point
-        #             insertion_point.prev.next = to_insert
-        #             insertion_point.prev = to_insert
-
-        #         if to_insert_next:
-        #             to_insert_next.prev = to_insert_prev
     
     def isSorted(self):
         current = self.head
@@ -111,7 +77,6 @@ class doublyLL:
             current = current.next
         return True
     
-    #THIS DOES NOT WORK
     def SortedInsert(self, node):
         if (self.isSorted() != True):
             self.Sort()
@@ -136,8 +101,7 @@ class doublyLL:
             current.next = node
             self.size += 1
 
-    #ngl i dont think it works properly bc what if 2 objects same val and, the next and previous nodes will never be the same
-    def Search(self, node): #WORKS BUT RETURNS AN OBJECT??????
+    def Search(self, node): 
         current = self.head
         while current is not None:
             if current.val == node.val:
@@ -173,28 +137,7 @@ class doublyLL:
             prev_node.next = None
             self.tail.prev = None
             self.tail = prev_node
-            self.size -= 1
-    
-    #NGL CHECK OVER, only deletes the first instance of this node, idk
-    # def Delete(self, node):
-    #     if self.head is None: # empty
-    #         return
-    #     elif node.val == self.head.val: # node to delete is the head node
-    #         self.DeleteHead()
-    #         return
-    #     elif node.val == self.tail.val: # node to delete is the tail node
-    #         self.DeleteTail()
-    #         return
-    #     else:
-    #         current_node = self.head
-    #         while current_node is not None:
-    #             if current_node.val == node.val:
-    #                 current_node.prev.next = current_node.next
-    #                 current_node.next.prev = current_node.prev
-    #                 self.size -= 1
-    #                 return
-    #             current_node = current_node.next
-    #         print("Node is not found in existing list")         
+            self.size -= 1      
 
     def count_node_occurrences(self,node):
         """
@@ -246,7 +189,6 @@ class doublyLL:
                         self.size -= 1
                         break
                     current_node = current_node.next
-                # print("Node is not found in existing list")    
             i += 1
 
     def Clear(self):
