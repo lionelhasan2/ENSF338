@@ -91,6 +91,7 @@ def test_SLL_Search():
     print("Testing search")
     if(testsll.Search(DNode(2))): #THIS DOES NOT WORK
         print("Search function for the node with value 2  was successful")
+        print(testsll.Search(DNode(2)))
     else:
         print("Search function for the node with value 2  was unsuccessful")
     print()
@@ -309,7 +310,7 @@ def test_CSLL_ConstructorsandInserters():
     output = captured_output.getvalue()
     sys.stdout = sys.__stdout__
     print(output)
-    assert output == "List size: 4\nSorted: False\nList content: 10 -5 2 10 \n"
+    assert output == "List size: 4\nSorted: No\nList content: 10 -5 2 10 \n"
 
 def test_CSLL_Sort():
     csll = CSLL(DNode(2)) 
@@ -324,7 +325,7 @@ def test_CSLL_Sort():
     output = captured_output.getvalue()
     sys.stdout = sys.__stdout__
     print(output)
-    assert output == "List size: 4\nSorted: True\nList content: -5 2 10 10 \n"
+    assert output == "List size: 4\nSorted: Yes\nList content: -5 2 10 10 \n"
 
 def test_CSLL_SortInsert():
     csll = CSLL(DNode(2)) 
@@ -339,7 +340,7 @@ def test_CSLL_SortInsert():
     output = captured_output.getvalue()
     sys.stdout = sys.__stdout__
     print(output)
-    assert output == "List size: 5\nSorted: True\nList content: -100 -5 2 10 10 \n"
+    assert output == "List size: 5\nSorted: Yes\nList content: -100 -5 2 10 10 \n"
 
 def test_CSLL_Delete():
     csll = CSLL(DNode(2)) 
@@ -357,7 +358,7 @@ def test_CSLL_Delete():
     output = captured_output.getvalue()
     sys.stdout = sys.__stdout__
     print(output)
-    assert output == "List size: 2\nSorted: True\nList content: -5 2 \n"
+    assert output == "List size: 2\nSorted: Yes\nList content: -5 2 \n"
 
 def test_CSLL_Search():
     csll = CSLL() 
@@ -370,6 +371,7 @@ def test_CSLL_Search():
         print(csll.Search(DNode(-5)))
     else:
         print("Search function for the node with value 0  was unsuccessful")
+    print()
     
 def test_CSLL_Clear():
     print("Testing clear")
@@ -386,50 +388,50 @@ def test_CSLL_Clear():
     assert output == "List size: 0\nSorted: Yes\nList content: \n"
 
 # def test_CSLL():
-    # print("Testing given node constructor, InsertTail, InsertHead, Insert, Print")
-    # captured_output = StringIO()
-    # sys.stdout = captured_output
-    # csll = CSLL(DNode(2)) 
-    # csll.InsertHead(DNode(-5))
-    # csll.InsertTail(DNode(10))
-    # csll.Insert(DNode(10), 1)
-    # csll.Print()
-    # output = captured_output.getvalue()
-    # sys.stdout = sys.__stdout__
-    # print(output)
-    # assert output == "List size: 4\nSorted: False\nList content: 10 -5 2 10 \n"
+#     print("Testing given node constructor, InsertTail, InsertHead, Insert, Print")
+#     captured_output = StringIO()
+#     sys.stdout = captured_output
+#     csll = CSLL(DNode(2)) 
+#     csll.InsertHead(DNode(-5))
+#     csll.InsertTail(DNode(10))
+#     csll.Insert(DNode(10), 1)
+#     csll.Print()
+#     output = captured_output.getvalue()
+#     sys.stdout = sys.__stdout__
+#     print(output)
+#     assert output == "List size: 4\nSorted: False\nList content: 10 -5 2 10 \n"
 
-    # print("Testing sort and sortInsert")
-    # captured_output = StringIO()
-    # sys.stdout = captured_output
-    # csll.Sort()
-    # csll.SortedInsert(DNode(20))
-    # csll.Print()
-    # output = captured_output.getvalue()
-    # sys.stdout = sys.__stdout__
-    # print(output)
-    # assert output == "List size: 5\nSorted: True\nList content: -5 2 10 10 20 \n"
+#     print("Testing sort and sortInsert")
+#     captured_output = StringIO()
+#     sys.stdout = captured_output
+#     csll.Sort()
+#     csll.SortedInsert(DNode(20))
+#     csll.Print()
+#     output = captured_output.getvalue()
+#     sys.stdout = sys.__stdout__
+#     print(output)
+#     assert output == "List size: 5\nSorted: True\nList content: -5 2 10 10 20 \n"
 
-    # print("Testing deleteHead, deleteTail, delete")
-    # captured_output = StringIO()
-    # sys.stdout = captured_output
-    # csll.DeleteHead()
-    # csll.DeleteTail()
-    # csll.Delete(DNode(10))
-    # csll.Print()
-    # output = captured_output.getvalue()
-    # sys.stdout = sys.__stdout__
-    # print(output)
-    # assert output == "List size: 1\nSorted: True\nList content: 2 \n"
+#     print("Testing deleteHead, deleteTail, delete")
+#     captured_output = StringIO()
+#     sys.stdout = captured_output
+#     csll.DeleteHead()
+#     csll.DeleteTail()
+#     csll.Delete(DNode(10))
+#     csll.Print()
+#     output = captured_output.getvalue()
+#     sys.stdout = sys.__stdout__
+#     print(output)
+#     assert output == "List size: 1\nSorted: True\nList content: 2 \n"
 
-    # print("Testing search")
-    # if(csll.Search(DNode(2))): #NGL IDK IF ITS SUPPOSED TO RETURN OBJECT OR SUCCESSFUL
-    #     print("Search function for the node with value 0  was successful")
-    #     print(csll.Search(DNode(2)))
-    # else:
-    #     print("Search function for the node with value 0  was unsuccessful")
+#     print("Testing search")
+#     if(csll.Search(DNode(2))): #NGL IDK IF ITS SUPPOSED TO RETURN OBJECT OR SUCCESSFUL
+#         print("Search function for the node with value 0  was successful")
+#         print(csll.Search(DNode(2)))
+#     else:
+#         print("Search function for the node with value 0  was unsuccessful")
 
-    # csll.Clear()
+#     csll.Clear()
 
 def test_CDLL_ConstructorsandInserters():
     print("Testing no node constructor, InsertTail, InsertHead, Insert, Print")

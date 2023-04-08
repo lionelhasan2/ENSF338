@@ -104,12 +104,12 @@ class SLL:
         self.sorted = True
 
     def Search(self, node):
-        curr = self.head
-        while curr:
-            if curr == node:
-                return True
-            curr = curr.next
-        return False
+        current = self.head
+        while current is not None:
+            if current.val == node.val:
+                return current
+            current = current.next
+        return None
 
 
     def getListHead(self):

@@ -12,8 +12,8 @@ class doublyCLL(doublyLL):
         self.head = node 
         self.size = 1 if node else 0
         self.tail = node
-        # self.prev = node
-        # self.next = node
+        # self.head.next = node
+        # self.head.prev = node
 
     def InsertHead(self, new_node):
         if self.head is None: #if it is empty CDLL
