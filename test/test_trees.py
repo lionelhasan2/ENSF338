@@ -1,5 +1,5 @@
-from myLib.datastructures.trees.AVL import AVL
-from myLib.datastructures.trees.BST import BST
+from myLib.datastructures.Trees.AVL import AVL
+from myLib.datastructures.Trees.BST import BST
 from myLib.datastructures.nodes.TNode import TNode
 import sys
 from pathlib import Path
@@ -93,8 +93,7 @@ def test_BSTprintinOrder():
     sys.stdout = sys.__stdout__
     assert output == '4\n6\n9\n'
 
-    # Testing delete function
-
+# Testing delete function for a value that is in the tree
 
 def test_BSTDelete():
     testTree = BST()
@@ -104,10 +103,43 @@ def test_BSTDelete():
     testTree.Insert(11)
     testTree.Insert(1)
     testTree.Insert(3)
-    testTree.delete(5)
-    result = testTree.search(5)
+    testTree.Delete(5)
+    result = testTree.Search(5)
     assert (result == None)
 
+
+#TODO test delete function for val not in tree
+
+def test_BSTDeleteNone():
+    testTree = BST()
+    testTree.Insert(2)
+    testTree.Insert(5)
+    testTree.Insert(7)
+    testTree.Insert(11)
+    testTree.Insert(1)
+    testTree.Insert(3)
+    captured_output = StringIO()
+    sys.stdout = captured_output
+    captured_output = StringIO()
+    sys.stdout = captured_output
+    testTree.Delete(6)
+    output = captured_output.getvalue()
+    sys.stdout = sys.__stdout__
+    assert output == 'The node with value 6 does not exist in the tree.\n'
+
+
+def test_BSTDeleteMultipleOccurences():
+    testTree = BST()
+    testTree.Insert(2)
+    testTree.Insert(5)
+    testTree.Insert(7)
+    testTree.Insert(11)
+    testTree.Insert(1)
+    testTree.Insert(3)
+    testTree.Insert(5)
+    testTree.Delete(5)
+    result = testTree.Search(5)
+    assert (result == None)
 
 def test_BSTSearch():
     testTree = BST(TNode(2))
@@ -116,7 +148,7 @@ def test_BSTSearch():
     testTree.Insert(0)
     testTree.Insert(7)
     testTree.Insert(6)
-    resultNode = testTree.search(5)
+    resultNode = testTree.Search(5)
     assert resultNode.get_data() == testNode.get_data()
 
 # Testing AVL search function. This assumes that the search function returns None if the value is not found.
@@ -127,7 +159,7 @@ def test_BSTSearchNone():
     testTree.Insert(0)
     testTree.Insert(7)
     testTree.Insert(6)
-    resultNode = testTree.search(3)
+    resultNode = testTree.Search(3)
     assert resultNode == None
 
 
@@ -202,7 +234,7 @@ def test_AVLSearch():
     testTree.Insert(0)
     testTree.Insert(7)
     testTree.Insert(6)
-    resultNode = testTree.search(5)
+    resultNode = testTree.Search(5)
     assert resultNode.get_data() == testNode.get_data()
 
 # Testing AVL search function. This assumes that the search function returns None if the value is not found.
@@ -213,7 +245,7 @@ def test_AVLSearchNone():
     testTree.Insert(0)
     testTree.Insert(7)
     testTree.Insert(6)
-    resultNode = testTree.search(3)
+    resultNode = testTree.Search(3)
     assert resultNode == None
 
 
@@ -225,6 +257,23 @@ def test_AVLGetRoot():
     testTree = AVL(test_Tnode)
     returnedNode = testTree.get_root()
     assert returnedNode == test_Tnode
+
+
+def test_AVLSetRoot():
+    testTree = AVL()
+    testTree.set_root(2)
+    testTree.Insert(5)
+    testTree.Insert(0)
+    testTree.Insert(7)
+    testTree.Insert(6)
+    captured_output = StringIO()
+    sys.stdout = captured_output
+    captured_output = StringIO()
+    sys.stdout = captured_output
+    testTree.printInOrder()
+    output = captured_output.getvalue()
+    sys.stdout = sys.__stdout__
+    assert output == '0\n2\n5\n6\n7\n'
 
 
 # Testing if setting root node to a tnode with children works. This assumes that the left and right children of the tnode are correctly placed as well.
@@ -278,3 +327,39 @@ def test_AVLInsertTNodeWithChildren():
     output = captured_output.getvalue()
     sys.stdout = sys.__stdout__
     assert output == '2\n1\n4\n3\n4\n'
+
+
+def test_AVLDeleteNode():
+    testTree = AVL()
+    testTree.Insert(2)
+    testTree.Insert(1)
+    testTree.Insert(3)
+    testTree.Insert(4)
+    testTree.Delete(3)
+    captured_output = StringIO()
+    sys.stdout = captured_output
+    captured_output = StringIO()
+    sys.stdout = captured_output
+    testTree.printBF()
+    output = captured_output.getvalue()
+    sys.stdout = sys.__stdout__
+    result = testTree.Search(3)
+    assert (result == None)
+    assert output == '2\n1\n4\n'
+
+
+def test_AVLDeleteNodeNone():
+    testTree = AVL()
+    testTree.Insert(2)
+    testTree.Insert(1)
+    testTree.Insert(3)
+    testTree.Insert(4)
+    testTree.Delete(5)
+    captured_output = StringIO()
+    sys.stdout = captured_output
+    captured_output = StringIO()
+    sys.stdout = captured_output
+    testTree.Delete(0)
+    output = captured_output.getvalue()
+    sys.stdout = sys.__stdout__
+    assert output == 'The node with value 0 does not exist in the tree.\n'

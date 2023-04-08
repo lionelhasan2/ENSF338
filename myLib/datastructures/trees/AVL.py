@@ -3,7 +3,7 @@ from pathlib import Path
 
 parent_dir = Path(__file__).resolve().parent.parent
 sys.path.append(str(parent_dir))
-from trees.BST import BST
+from Trees.BST import BST
 
 
 from myLib.datastructures.nodes.TNode import TNode
@@ -111,13 +111,21 @@ class AVL(BST):
                     else:
                         current_node = current_node.right
                 if param <= parent_node.data:
-                    parent_node.left = TNode(param)
-                    parent_node.left.parent = parent_node
+                    if parent_node.left is None:
+                        parent_node.left = TNode(param)
+                        parent_node.left.parent = parent_node
+                    else:
+                        self.Insert(param)  # Recursively insert duplicate node to the left
                 else:
-                    parent_node.right = TNode(param)
-                    parent_node.right.parent = parent_node
+                    if parent_node.right is None:
+                        parent_node.right = TNode(param)
+                        parent_node.right.parent = parent_node
+                    else:
+                        self.Insert(param)  # Recursively insert duplicate node to the right
             self.updateBalance(self.root)
             self.balance_avl()
+
+
 
 
 
@@ -130,6 +138,67 @@ class AVL(BST):
             self.root = None        
         self.updateBalance(self.root)
         self.balance_avl()
+    
+
+    def Delete(self,val):
+        if self.root is None:
+            return
+        node = self.Search(val)
+        if node is None:
+            print("The node with value " + str(val) + " does not exist in the tree.")
+            return
+
+        parent = node.parent
+
+        # case 1: node is a leaf node
+        if node.left is None and node.right is None:
+            if parent is None:
+                self.root = None
+            elif parent.left == node:
+                parent.left = None
+            else:
+                parent.right = None
+
+        # case 2: node has only one child
+        elif node.left is None:
+            if parent is None:
+                self.root = node.right
+            elif parent.left == node:
+                parent.left = node.right
+            else:
+                parent.right = node.right
+            node.right.parent = parent
+
+        elif node.right is None:
+            if parent is None:
+                self.root = node.left
+            elif parent.left == node:
+                parent.left = node.left
+            else:
+                parent.right = node.left
+            node.left.parent = parent
+
+
+        # case 3: node has both left and right children
+        else:
+            # find the node with the smallest value in the right subtree
+            temp = node.right
+            while temp.left is not None:
+                temp = temp.left
+            # replace node's value with temp's value
+            node.data = temp.data
+            # delete the node with temp's value in the right subtree
+            if temp.parent.left == temp:
+                temp.parent.left = temp.right
+            else:
+                temp.parent.right = temp.right
+            if temp.right is not None:
+                temp.right.parent = temp.parent
+        self.updateBalance(self.root)
+        self.balance_avl()
+        if self.Search(val) is not None:
+            self.Delete(val)
+
 
 
 
