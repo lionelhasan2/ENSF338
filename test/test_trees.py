@@ -1,13 +1,12 @@
-from myLib.datastructures.trees.AVL import AVL
-from myLib.datastructures.trees.BST import BST
-from myLib.datastructures.nodes.TNode import TNode
+from myLib.datastructures.Trees.AVL import AVL
+from myLib.datastructures.Trees.BST import BST
+from myLib.datastructures.Nodes.TNode import TNode
 import sys
 from pathlib import Path
 from io import StringIO
 
 
-parent_dir = Path(__file__).resolve().parent.parent
-sys.path.append(str(parent_dir))
+
 
 def test_TNodeSettersandGetters():
     test = TNode()

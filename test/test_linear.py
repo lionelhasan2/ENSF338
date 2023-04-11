@@ -7,11 +7,11 @@ import pytest
 parent_dir = Path(__file__).resolve().parent.parent
 sys.path.append(str(parent_dir))
 
-from myLib.datastructures.nodes.Dnode import DNode
+from myLib.datastructures.Nodes.DNode import DNode
 from myLib.datastructures.Linear.SLL import SLL
-from myLib.datastructures.Linear.DLL import doublyLL
+from myLib.datastructures.Linear.DLL import DLL
 from myLib.datastructures.Linear.CSLL import CSLL
-from myLib.datastructures.Linear.CDLL import doublyCLL
+from myLib.datastructures.Linear.CDLL import CDLL
 from myLib.datastructures.Linear.LLStack import LLStack
 from myLib.datastructures.Linear.LLQueue import LLQueue
 
@@ -115,7 +115,7 @@ def test_DLL_ConstructorsandInserters():
     print("Testing no node constructor, InsertTail, InsertHead, Insert, Print")
     captured_output = StringIO()
     sys.stdout = captured_output
-    dll = doublyLL(DNode(0)) 
+    dll =DLL(DNode(0)) 
     dll.InsertHead(DNode(-5))
     dll.Insert(DNode(6), 2)
     dll.InsertTail(DNode(3))
@@ -127,7 +127,7 @@ def test_DLL_ConstructorsandInserters():
     assert output == "List size: 5\nSorted: False\nList content: 6 -5 6 0 3 \n"
 
 def test_DLL_Sort():
-    dll = doublyLL(DNode(0)) 
+    dll = DLL(DNode(0)) 
     dll.InsertHead(DNode(-5))
     dll.Insert(DNode(6), 2)
     dll.InsertTail(DNode(3))
@@ -143,7 +143,7 @@ def test_DLL_Sort():
     assert output == "List size: 5\nSorted: True\nList content: -5 0 3 6 6 \n"
 
 def test_DLL_SortInsert():
-    dll = doublyLL(DNode(0)) 
+    dll = DLL(DNode(0)) 
     dll.InsertHead(DNode(-5))
     dll.Insert(DNode(6), 2)
     dll.InsertTail(DNode(3))
@@ -159,7 +159,7 @@ def test_DLL_SortInsert():
     assert output == "List size: 6\nSorted: True\nList content: -5 -1 0 3 6 6 \n"
 
 def test_DLL_Delete():
-    dll = doublyLL(DNode(0)) 
+    dll = DLL(DNode(0)) 
     dll.InsertHead(DNode(-5))
     dll.Insert(DNode(6), 2)
     dll.InsertTail(DNode(3))
@@ -177,7 +177,7 @@ def test_DLL_Delete():
     assert output == "List size: 2\nSorted: True\nList content: -5 0 \n"
 
 def test_DLL_Search():
-    dll = doublyLL(DNode(0)) 
+    dll = DLL(DNode(0)) 
     dll.Insert(DNode(6), 2)
     dll.InsertTail(DNode(3))
     print("Testing search")
@@ -190,7 +190,7 @@ def test_DLL_Search():
     
 def test_DLL_Clear():
     print("Testing clear")
-    dll = doublyLL(DNode(0)) 
+    dll = DLL(DNode(0)) 
     dll.InsertHead(DNode(-5))
     dll.Insert(DNode(6), 2)
     captured_output = StringIO()
@@ -295,7 +295,7 @@ def test_CDLL_ConstructorsandInserters():
     print("Testing no node constructor, InsertTail, InsertHead, Insert, Print")
     captured_output = StringIO()
     sys.stdout = captured_output
-    cdll = doublyCLL(DNode(0))
+    cdll = CDLL(DNode(0))
     cdll.InsertHead(DNode(-5))
     cdll.Insert(DNode(5), 2)
     cdll.InsertTail(DNode(3))
@@ -307,7 +307,7 @@ def test_CDLL_ConstructorsandInserters():
     assert output == "List Length: 5\nSorted Status: False\nList Content: -5 6 5 0 3 \n"
 
 def test_CDLL_Sort():
-    cdll = doublyCLL(DNode(0))
+    cdll = CDLL(DNode(0))
     cdll.InsertHead(DNode(-5))
     cdll.Insert(DNode(5), 2)
     cdll.InsertTail(DNode(3))
@@ -323,7 +323,7 @@ def test_CDLL_Sort():
     assert output == "List Length: 5\nSorted Status: True\nList Content: -5 0 3 5 6 \n"
 
 def test_CDLL_SortInsert():
-    cdll = doublyCLL(DNode(0))
+    cdll = CDLL(DNode(0))
     cdll.InsertHead(DNode(-5))
     cdll.Insert(DNode(5), 2)
     cdll.InsertTail(DNode(3))
@@ -339,7 +339,7 @@ def test_CDLL_SortInsert():
     assert output == "List Length: 6\nSorted Status: True\nList Content: -100 -5 0 3 5 6 \n"
 
 def test_CDLL_Delete():
-    cdll = doublyCLL(DNode(0))
+    cdll = CDLL(DNode(0))
     cdll.InsertHead(DNode(-5))
     cdll.Insert(DNode(5), 2)
     cdll.InsertTail(DNode(3))
@@ -358,7 +358,7 @@ def test_CDLL_Delete():
     assert output == "List Length: 4\nSorted Status: True\nList Content: -5 0 3 5 \n"
 
 def test_CDLL_Search():
-    cdll = doublyCLL(DNode(0)) 
+    cdll = CDLL(DNode(0)) 
     cdll.Insert(DNode(6), 2)
     cdll.InsertTail(DNode(3))
     print("Testing search")
@@ -371,7 +371,7 @@ def test_CDLL_Search():
     
 def test_CDLL_Clear():
     print("Testing clear")
-    cdll = doublyCLL(DNode(0)) 
+    cdll = CDLL(DNode(0)) 
     cdll.InsertHead(DNode(-5))
     cdll.Insert(DNode(6), 2)
     captured_output = StringIO()
